@@ -1,30 +1,23 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* Essa classe será herdada pela classe personagem
+*/
 
-/**
- *
- * @author vdunz
- */
 public class Atributos {
-    int forca;
-    private int dextreza;
+    private int forca;
+    private int destreza;
     private int contituicao;
     private int inteligencia;
     private int sabedoria;
     private int carisma;
-    
-    
-    public Atributos(int forca, int dextreza, int constituicao, int inteligencia, int sabedoria, int carisma){
+
+
+    public Atributos(int forca, int destreza, int constituicao, int inteligencia, int sabedoria, int carisma){
         this.forca = forca;
-        this.dextreza = dextreza;
+        this.destreza = destreza;
         this.contituicao = constituicao;
         this.inteligencia = inteligencia;
         this.sabedoria = sabedoria;
         this.carisma = carisma;
-    
     }
 
     /**
@@ -42,17 +35,17 @@ public class Atributos {
     }
 
     /**
-     * @return the dextreza
+     * @return the destreza
      */
-    public int getDextreza() {
-        return dextreza;
+    public int getdestreza() {
+        return destreza;
     }
 
     /**
-     * @param dextreza the dextreza to set
+     * @param destreza the destreza to set
      */
-    public void setDextreza(int dextreza) {
-        this.dextreza = dextreza;
+    public void setdestreza(int destreza) {
+        this.destreza = destreza;
     }
 
     /**
@@ -110,5 +103,5 @@ public class Atributos {
     public void setCarisma(int carisma) {
         this.carisma = carisma;
     }
-                    
+
 }

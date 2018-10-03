@@ -1,35 +1,52 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Nessa classe é onde é definido o personagem
+ * Essa classe implementa a interfaçe Classe e herda a classe Atributos(por facilidade)
  */
 
-/**
- *
- * @author vdunz
- */
-public class Personagem extends Atributos{
+ import java.util.Random;
+ private static Random rolarDado = new Random();
+
+public class Personagem implements Classe, extends Atributos{
     private String nome;
-    
-    
-    public Personagem(String nome, int forca, int dextreza, int constituicao, int inteligencia, int sabedoria, int carisma){
-       super(forca,  dextreza,  constituicao, inteligencia,  sabedoria, carisma);
-       this.nome = nome;
+	private int HP;
+	private int Dano_Base;
+	// Métodos de ataque (importados de classe)
+
+    public Personagem(String nome, int forca, int destreza, int constituicao, int inteligencia, int sabedoria, int carisma, Raca race){
+		switch(race){
+
+			case ANAO:
+				constituicao += 2;
+
+			case ELFO:
+				destreza += 2;
+
+			case HUMANO:
+				forca += 1;
+				destreza += 1;
+				constituicao += 1;
+				inteligencia += 1;
+				sabedoria += 1;
+				carisma += 1;
+		}
+       	super(forca, destreza, constituicao, inteligencia, sabedoria, carisma);
+       	this.nome = nome;
+		this.HP = constituicao + rolarDado(12);
+		this.Dano_Base = forca + rolarDado(20);
+		// Dano_Base afeta o dano de ataque de armas brancas
+		// Dano mágico é afetado por outra coisa
     }
 
-    /**
-     * @return the nome
-     */
     public String getNome() {
-        return nome;
+    	return nome;
     }
 
-    /**
-     * @param nome the nome to set
-     */
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	public int getHP() {
+		return HP;
+	}
+
+	public int getDano_Base() {
+		return Dano_Base;
+	}
+
 }
-
-
