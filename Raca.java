@@ -1,21 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Nesta classe são definidas as raças na forma de enumeradores
  */
 
-/**
- *
- * @author vdunz
- */
 public enum Raca {
     ANAO,
     ELFO,
-    HALFLING,
-    HUMANO,
-    DRACONATO,
-    GNOMO,
-    MEIO_ORC,
-    MEIO_ELFO,
-    TIEFLING;
+	HUMANO;
 }
