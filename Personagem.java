@@ -5,12 +5,12 @@
  */
 
  import java.util.Random;
- private static Random rolarDado = new Random();
 
 public class Personagem extends Atributos implements Classe{
     private String nome;
 	private int HP;
 	private int Dano_Base;
+	private static Random rolarDado = new Random();
 
     public Personagem(String nome, int forca, int destreza, int constituicao, int inteligencia, int sabedoria, int carisma, Raca race){
 
@@ -35,8 +35,8 @@ public class Personagem extends Atributos implements Classe{
 		}
        	super(forca, destreza, constituicao, inteligencia, sabedoria, carisma);
        	this.nome = nome;
-		this.HP = constituicao + rolarDado(12);
-		this.Dano_Base = forca + rolarDado(20);
+		this.HP = constituicao + rolarDado.nextInt(10)+1;
+		this.Dano_Base = forca + rolarDado.nextInt(20)+1;
 		// Dano_Base afeta o dano de ataque de armas brancas
     }
 
