@@ -1,21 +1,20 @@
 /*
- * Nessa classe Ã© onde Ã© definido o personagem
- * Essa classe implementa a interfaÃ§e Classe e herda a classe Atributos(por facilidade)
- * Falta fazer mÃ©todos estÃ¡ticos para atacar e defender
+ * Nessa classe é onde o personagem é definido
+ * Essa classe implementa a interfaçe Classe e herda a classe Atributos(por facilidade)
  */
 
 
 public class Personagem extends Atributos implements Classes_Jogaveis{
-    private String nome;
-	private int HP_Base;
+    private final String nome;
+	private final int HP_Base;
+	private final Raca race;
+	private final Classe classe;
 	private int HP_Atual;
-	private Raca race;
-	private Classe classe;
 	private String[] itens_Equipados; // Total de itens que o personagem pode ter equipado
-	private String[] itens_Guardados; // Total de itens nÃ£o equipados que o personagem pode carregar em um dado momento
+	private String[] itens_Guardados; // Total de itens não equipados que o personagem pode carregar em um dado momento
 
     public Personagem(String nome, int forca, int destreza, int constituicao, int inteligencia, int sabedoria, int carisma, Raca race, Classe classe){
-        
+
         super(forca, destreza, constituicao, inteligencia, sabedoria, carisma, race);
        	this.nome = nome;
         this.race = race;
@@ -53,37 +52,37 @@ public class Personagem extends Atributos implements Classes_Jogaveis{
         Dados D = new Dados();
         int Output = 0;
 
-            switch(classe_escolhida){
+        switch(classe_escolhida){
 
-                case BARBARO:
-                        Output = super.getContituicao() + D.rolarD12();
-                break;
+            case BARBARO:
+                    Output = super.getConstituicao() + D.rolarD12();
+            break;
 
-                case MAGO:
-                        Output = super.getContituicao() + D.rolarD6();
-                break;
+            case MAGO:
+                    Output = super.getConstituicao() + D.rolarD6();
+            break;
 
-                case GUERREIRO:
-                case CACADOR:
-                        Output = super.getContituicao() + D.rolarD10();
-                break;
+            case GUERREIRO:
+            case CACADOR:
+                    Output = super.getConstituicao() + D.rolarD10();
+            break;
 
-                case LADINO:
-                        Output = super.getContituicao() + D.rolarD8();
-                break;
+            case LADINO:
+                    Output = super.getConstituicao() + D.rolarD8();
+            break;
 
-            }
-            return Output;
+        }
+        return Output;
     }
 
-        @Override
+    @Override
 	public void habilidadeEspecial(Personagem Atacante, Personagem Defensor){
 		int Dano;
-                Dados D = new Dados();
+        Dados D = new Dados();
 
 		switch(this.classe){
 
-			case BARBARO:
+			case BARBARO: // alterar para combinar com os valores corretos de armas e armaduras
 				if(D.rolarD20() > 16){
 					Dano = 2*Atacante.bonusForca() + D.rolarD10() + D.rolarD12();
 					// reduzir HP
@@ -116,27 +115,12 @@ public class Personagem extends Atributos implements Classes_Jogaveis{
 
 	}
 
-	// para o ataque Ã© necessÃ¡rio saber a defesa
-	// para saber a defesa Ã© necessÃ¡rio implementar o equipamento
-	// implementar a possibilidade de critar
-	public void ataqueEspada(Personagem Atacante, Personagem Defensor){
-		int Dano;
-                Dados D = new Dados();
-                
-		// 17 Ã© a classe de defesa da armadura
-		// um d20 Ã© rolado para determinar se um ataque acerta o alvo ou nÃ£o
-		if(D.rolarD20() > 16){
-			Dano = D.rolarD10() + super.bonusForca();
-			// adicionar classe para reduzir HP
-		}
+	@Override
+	public void habilidadeEspecial(Personagem Proprio){
 
 	}
 
-	// public static void ataqueArco(Personagem Atacante, Personagem Defensor)
-
-    @Override
-    public void habilidadeEspecial(Personagem Proprio) {
-        
-    }
+	// refazer o ataque, usando o enum de
+	// equipamentos para calcular o dano e a defesa
 
 }

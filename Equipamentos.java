@@ -2,43 +2,39 @@
 * Enum do equipamento dos personagens
 */
 
-// O número representa o dano da arma
-// No caso da armadura, representa a defesa
-// Quando for feito um ataque, será rolado um d20
-// Caso d20 > 17 será rolado um d10+bonusForca(caso da espada)
-// OU d8+bonusDestreza(caso arco) para calcular o dano do ataque
-
 public class Equipamentos{
 
 	public enum Armas{
-		ESPADA,
-		ARCOLONGO,
-		ADAGA;
+		ESPADALONGA, // Dano: 1d10
+		ESPADA,      // Dano: 1d8
+		ARCOLONGO,   // Dano: 2d6
+		ARCOCURTO,	 // Dano: 1d6
+		ADAGA;	     // Dano: 1d4
 	}
 
-        public enum Armaduras{
-            LEVE(11),
-            MEDIA(14),
-            PESADA(17),
-            ESCUDO(2);
-            
-            private final int Valor;
-            
-            Armaduras(int Valor){
-                this.Valor = Valor;
-            }
-            
-            public int getValor(){
-                return this.Valor;
-            }
-            
+    public enum Armaduras{ // O valor é o valor de defesa da armadura
+        LEVE(12),
+        MEDIA(14),
+        PESADA(18),
+        ESCUDO(2);
+
+        private final int Valor;
+
+        Armaduras(int Valor){
+            this.Valor = Valor;
         }
-        
-	public enum Magias{
-		BOLA_FOGO,
-		EMPURRAR,
-		CURAR,
-		RELAMPAGO;
+
+        public int getValor(){
+            return this.Valor;
+        }
+
+    }
+
+	public enum Magias{ // Ignoram a armadura, mas se o alvo rolar +15 de const toma metade do dano
+		BOLA_FOGO, // Dano: 3d4
+		BOLA_GELO, // Dano: 2d6
+		RELAMPAGO, // Dano: 1d10
+		CURAR;	   // Regenera: 1d8 de HP
 	}
 
 }
