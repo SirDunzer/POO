@@ -11,6 +11,8 @@ public class Personagem extends Atributos implements Classes_Jogaveis{
 	private int HP_Base;
 	private int HP_Atual;
 	private int dano_Base;
+	private Raca race;
+	private Classe classe;
 	private String[] itens_Equipados; // Total de itens que o personagem pode ter equipado
 	private String[] itens_Guardados; // Total de itens não equipados que o personagem pode carregar em um dado momento
 	private static Random rolarDado = new Random();
@@ -21,11 +23,11 @@ public class Personagem extends Atributos implements Classes_Jogaveis{
 
 			case ANAO:
 				constituicao += 2;
-				break;
+			break;
 
 			case ELFO:
 				destreza += 2;
-				break;
+			break;
 
 			case HUMANO:
 				forca += 1;
@@ -34,12 +36,14 @@ public class Personagem extends Atributos implements Classes_Jogaveis{
 				inteligencia += 1;
 				sabedoria += 1;
 				carisma += 1;
-				break;
+			break;
 		}
        	super(forca, destreza, constituicao, inteligencia, sabedoria, carisma);
        	this.nome = nome;
+		this.race = race;
+		this.classe = classe;
 
-		this.HP_Base = calcularHP(classe);
+		this.HP_Base = calcularHP(this.classe);
 		this.HP_Atual = this.HP_Base;
 
 		// dano_Base afeta o dano de ataque de armas brancas
@@ -84,12 +88,12 @@ public class Personagem extends Atributos implements Classes_Jogaveis{
 				return this.constituicao + rolarDado.nextInt(12)+1;
 			break;
 
-			case FEITICEIRO:
 			case MAGO:
 				return this.constituicao + rolarDado.nextInt(6)+1;
 			break;
 
 			case GUERREIRO:
+			case CACADOR:
 				return this.constituicao + rolarDado.nextInt(10)+1;
 			break;
 
@@ -100,5 +104,34 @@ public class Personagem extends Atributos implements Classes_Jogaveis{
 		}
 	}
 
+	@Override
+	public int habilidadeEspecial(void){
+
+		switch(this.classe){
+
+			case BARBARO:
+
+			break;
+
+			case CACADOR:
+
+			break;
+
+			case GUERREIRO:
+
+			break;
+
+			case LADINO:
+
+			break;
+
+			case MAGO:
+
+			break;
+
+		}
+
+
+	}
 
 }
