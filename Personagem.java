@@ -74,7 +74,7 @@ public class Personagem extends Atributos implements Classes_Jogaveis{
 		return dano_Base;
 	}
 
-	@ Override
+	@Override
 	public String toString(){
 		return ""+this.nome+"tem os seguintes atributos:\n"+super.toString()+"\nTem "+this.HP_Base+" pontos de Vida Base\nTem "+this.HP_Atual+"Ponto de Vida Atualmenten\nSeu dano base é: "+this.dano_Base;
 	}
@@ -106,6 +106,7 @@ public class Personagem extends Atributos implements Classes_Jogaveis{
 
 	@Override
 	public int habilidadeEspecial(void){
+		private bool acerto;
 
 		switch(this.classe){
 
@@ -135,6 +136,16 @@ public class Personagem extends Atributos implements Classes_Jogaveis{
 
 	// para o ataque é necessário saber a defesa
 	// para saber a defesa é necessário implementar o equipamento
-	public static void ataque(Personagem Atacante, Personagem Defensor){}
+	public static void ataqueEspada(Personagem Atacante, Personagem Defensor){
+		private int Dano;
+		// 17 é a classe de defesa da armadura
+		// um d20 é rolado para determinar se um ataque acerta o alvo ou não
+		if(rolarDado.nextInt(20)+1 > 17){
+			Dano = rolarDado.nextInt(ESPADA.getValor())+1;
+		}
+
+	}
+
+	// public static void ataqueArco(Personagem Atacante, Personagem Defensor)
 
 }
