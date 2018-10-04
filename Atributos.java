@@ -20,86 +20,52 @@ public class Atributos {
         this.carisma = carisma;
     }
 
-    /**
-     * @return the forca
-     */
+		/*GETTERS*/
     public int getForca() {
         return forca;
     }
 
-    /**
-     * @param forca the forca to set
-     */
-    public void setForca(int forca) {
-        this.forca = forca;
-    }
+	public int getdestreza() {
+		return destreza;
+	}
 
-    /**
-     * @return the destreza
-     */
-    public int getdestreza() {
-        return destreza;
-    }
+	public int getContituicao() {
+		return contituicao;
+	}
 
-    /**
-     * @param destreza the destreza to set
-     */
+	public int getInteligencia() {
+		return inteligencia;
+	}
+
+	public int getSabedoria() {
+		return sabedoria;
+	}
+
+	public int getCarisma() {
+		return carisma;
+	}
+
+		/*SETTERS*/
+	public void setForca(int forca) {
+		this.forca = forca;
+	}
+
     public void setdestreza(int destreza) {
         this.destreza = destreza;
     }
 
-    /**
-     * @return the contituicao
-     */
-    public int getContituicao() {
-        return contituicao;
-    }
-
-    /**
-     * @param contituicao the contituicao to set
-     */
     public void setContituicao(int contituicao) {
         this.contituicao = contituicao;
     }
 
-    /**
-     * @return the inteligencia
-     */
-    public int getInteligencia() {
-        return inteligencia;
-    }
-
-    /**
-     * @param inteligencia the inteligencia to set
-     */
     public void setInteligencia(int inteligencia) {
         this.inteligencia = inteligencia;
     }
 
-    /**
-     * @return the sabedoria
-     */
-    public int getSabedoria() {
-        return sabedoria;
-    }
-
-    /**
-     * @param sabedoria the sabedoria to set
-     */
     public void setSabedoria(int sabedoria) {
         this.sabedoria = sabedoria;
     }
 
-    /**
-     * @return the carisma
-     */
-    public int getCarisma() {
-        return carisma;
-    }
-
-    /**
-     * @param carisma the carisma to set
-     */
     public void setCarisma(int carisma) {
         this.carisma = carisma;
     }
