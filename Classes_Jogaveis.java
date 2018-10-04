@@ -16,7 +16,9 @@ public interface Classes_Jogaveis{
 		MAGO;
 	}
 
-	int habilidadeEspecial(void);
+	void habilidadeEspecial(Personagem Atacante, Personagem Defensor);
+//      @Overload
+        void habilidadeEspecial(Personagem Proprio);
 	int calcularHP(Classe classe_escolhida);
 	/*
 	* Habilidades de cada classe:
