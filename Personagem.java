@@ -131,7 +131,10 @@ public class Personagem extends Atributos implements Classes_Jogaveis{
 
 		}
 
-
 	}
+
+	// para o ataque é necessário saber a defesa
+	// para saber a defesa é necessário implementar o equipamento
+	public static void ataque(Personagem PC1, Personagem PC2){}
 
 }
