@@ -1,17 +1,38 @@
 /*
-* Essa classe será herdada pela classe personagem
+* Essa classe serÃ¡ herdada pela classe personagem
 */
 
 public class Atributos {
     private int forca;
     private int destreza;
-    private int contituicao;
+    private int constituicao;
     private int inteligencia;
     private int sabedoria;
     private int carisma;
 
 
-    public Atributos(int forca, int destreza, int constituicao, int inteligencia, int sabedoria, int carisma){
+    public Atributos(int forca, int destreza, int constituicao, int inteligencia, int sabedoria, int carisma, Raca race){
+
+	    switch(race){
+
+	        case ANAO:
+	            constituicao += 2;
+	        break;
+
+	        case ELFO:
+	            destreza += 2;
+	        break;
+
+	        case HUMANO:
+	            forca += 1;
+	            destreza += 1;
+	            constituicao += 1;
+	            inteligencia += 1;
+	            sabedoria += 1;
+	            carisma += 1;
+	        break;
+	    }
+
         this.forca = forca;
         this.destreza = destreza;
         this.constituicao = constituicao;
@@ -22,52 +43,27 @@ public class Atributos {
 
 		/*GETTERS*/
     public int getForca() {
-        return this.forca;
+    	return this.forca;
     }
 
-	public int getdestreza() {
-		return this.destreza;
-	}
-
-	public int getContituicao() {
-		return this.contituicao;
-	}
-
-	public int getInteligencia() {
-		return this.inteligencia;
-	}
-
-	public int getSabedoria() {
-		return this.sabedoria;
-	}
-
-	public int getCarisma() {
-		return this.carisma;
-	}
-
-		/*SETTERS*/
-	public void setForca(int forca) {
-		this.forca = forca;
-	}
-
-    public void setdestreza(int destreza) {
-        this.destreza = destreza;
+    public int getdestreza() {
+        return this.destreza;
     }
 
-    public void setContituicao(int contituicao) {
-        this.contituicao = contituicao;
+    public int getConstituicao() {
+        return this.constituicao;
     }
 
-    public void setInteligencia(int inteligencia) {
-        this.inteligencia = inteligencia;
+    public int getInteligencia() {
+        return this.inteligencia;
     }
 
-    public void setSabedoria(int sabedoria) {
-        this.sabedoria = sabedoria;
+    public int getSabedoria() {
+        return this.sabedoria;
     }
 
-    public void setCarisma(int carisma) {
-        this.carisma = carisma;
+    public int getCarisma() {
+        return this.carisma;
     }
 
 	@Override
@@ -101,6 +97,7 @@ public class Atributos {
 		}else if(this.forca > 20){
 			return 6;
 		}
+        return 0;
 	}
 
 	public int bonusDestreza(){
@@ -129,6 +126,7 @@ public class Atributos {
 		}else if(this.destreza > 20){
 			return 6;
 		}
+        return 0;
 	}
 
 	public int bonusConstituicao(){
@@ -157,6 +155,7 @@ public class Atributos {
 		}else if(this.constituicao > 20){
 			return 6;
 		}
+        return 0;
 	}
 
 	public int bonusInteligencia(){
@@ -185,6 +184,7 @@ public class Atributos {
 		}else if(this.inteligencia > 20){
 			return 6;
 		}
+        return 0;
 	}
 
 	public int bonusSabedoria(){
@@ -213,6 +213,7 @@ public class Atributos {
 		}else if(this.sabedoria > 20){
 			return 6;
 		}
+        return 0;
 	}
 
 	public int bonusCarisma(){
@@ -241,6 +242,7 @@ public class Atributos {
 		}else if(this.carisma > 20){
 			return 6;
 		}
+        return 0;
 	}
 
 }
