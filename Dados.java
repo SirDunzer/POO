@@ -1,7 +1,7 @@
 import java.util.Random;
 
 public class Dados{
-        private Random Dado = new Random();
+    private Random Dado = new Random();
 
 	public int rolarD100(){
 		return Dado.nextInt(100)+1;
@@ -30,4 +30,8 @@ public class Dados{
 	public int rolarD4(){
 		return Dado.nextInt(4)+1;
 	}
+
+    public int rolarValores(){
+        return rolarD6() + rolarD6() + rolarD6();
+    }
 }
