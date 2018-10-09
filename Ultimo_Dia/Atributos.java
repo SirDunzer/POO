@@ -18,25 +18,24 @@ public class Atributos {
         sabedoria = d.rolarValores();
         carisma = d.rolarValores();
 
-		switch(raca){
+        switch(raca){
+            case ANAO:
+                constituicao += 2;
+            break;
+            
+            case ELFO:
+                destreza += 2;
+            break;
 
-	        case ANAO:
-	            constituicao += 2;
-	        break;
-
-	        case ELFO:
-	            destreza += 2;
-	        break;
-
-	        case HUMANO:
-	            forca += 1;
-	            destreza += 1;
-	            constituicao += 1;
-	            inteligencia += 1;
-	            sabedoria += 1;
-	            carisma += 1;
-	        break;
-	    }
+            case HUMANO:
+                forca += 1;
+                destreza += 1;
+                constituicao += 1;
+                inteligencia += 1;
+                sabedoria += 1;
+                carisma += 1;
+            break;
+        }
     }
 
 		/*GETTERS*/
@@ -64,189 +63,189 @@ public class Atributos {
         return carisma;
     }
 
-	@Override
-	public String toString(){
-		return "Força: "+forca+"\nDestreza: "+destreza+"\nConstituição: "+constituicao+"\nInteligência: "+inteligencia+"\nSabedoria: "+sabedoria+"\nCarisma: "+carisma+"\n";
-	}
+    @Override
+    public String toString(){
+            return "Força: "+forca+"\nDestreza: "+destreza+"\nConstituição: "+constituicao+"\nInteligência: "+inteligencia+"\nSabedoria: "+sabedoria+"\nCarisma: "+carisma+"\n";
+    }
 
-	public int modificadorForca(){
+    public int modificadorForca(){
 
-		switch(this.forca){
-			case 1:
-				return -5;
-			case 2: case 3:
-				return -4;
-			case 4: case 5:
-				return -3;
-			case 6: case 7:
-				return -2;
-			case 8: case 9:
-				return -1;
-			case 10: case 11:
-				return 0;
-			case 12: case 13:
-				return 1;
-			case 14: case 15:
-				return 2;
-			case 16: case 17:
-				return 3;
-			case 18: case 19:
-				return 4;
-			case 20:
-				return 5;
-			default:
-				return 6;
-		}
-	}
+        switch(this.forca){
+            case 1:
+                    return -5;
+            case 2: case 3:
+                    return -4;
+            case 4: case 5:
+                    return -3;
+            case 6: case 7:
+                    return -2;
+            case 8: case 9:
+                    return -1;
+            case 10: case 11:
+                    return 0;
+            case 12: case 13:
+                    return 1;
+            case 14: case 15:
+                    return 2;
+            case 16: case 17:
+                    return 3;
+            case 18: case 19:
+                    return 4;
+            case 20:
+                    return 5;
+            default:
+                    return 6;
+        }
+    }
 
-	public int modificadorDestreza(){
+    public int modificadorDestreza(){
 
-		switch(this.destreza){
-			case 1:
-				return -5;
-			case 2: case 3:
-				return -4;
-			case 4: case 5:
-				return -3;
-			case 6: case 7:
-				return -2;
-			case 8: case 9:
-				return -1;
-			case 10: case 11:
-				return 0;
-			case 12: case 13:
-				return 1;
-			case 14: case 15:
-				return 2;
-			case 16: case 17:
-				return 3;
-			case 18: case 19:
-				return 4;
-			case 20:
-				return 5;
-			default:
-				return 6;
-		}
-	}
+        switch(this.destreza){
+            case 1:
+                    return -5;
+            case 2: case 3:
+                    return -4;
+            case 4: case 5:
+                    return -3;
+            case 6: case 7:
+                    return -2;
+            case 8: case 9:
+                    return -1;
+            case 10: case 11:
+                    return 0;
+            case 12: case 13:
+                    return 1;
+            case 14: case 15:
+                    return 2;
+            case 16: case 17:
+                    return 3;
+            case 18: case 19:
+                    return 4;
+            case 20:
+                    return 5;
+            default:
+                    return 6;
+        }
+    }
 
-	public int modificadorConstituicao(){
+    public int modificadorConstituicao(){
 
-		switch(this.constituicao){
-			case 1:
-				return -5;
-			case 2: case 3:
-				return -4;
-			case 4: case 5:
-				return -3;
-			case 6: case 7:
-				return -2;
-			case 8: case 9:
-				return -1;
-			case 10: case 11:
-				return 0;
-			case 12: case 13:
-				return 1;
-			case 14: case 15:
-				return 2;
-			case 16: case 17:
-				return 3;
-			case 18: case 19:
-				return 4;
-			case 20:
-				return 5;
-			default:
-				return 6;
-		}
-	}
+        switch(this.constituicao){
+            case 1:
+                    return -5;
+            case 2: case 3:
+                    return -4;
+            case 4: case 5:
+                    return -3;
+            case 6: case 7:
+                    return -2;
+            case 8: case 9:
+                    return -1;
+            case 10: case 11:
+                    return 0;
+            case 12: case 13:
+                    return 1;
+            case 14: case 15:
+                    return 2;
+            case 16: case 17:
+                    return 3;
+            case 18: case 19:
+                    return 4;
+            case 20:
+                    return 5;
+            default:
+                    return 6;
+        }
+    }
 
-	public int modificadorInteligencia(){
+    public int modificadorInteligencia(){
 
-		switch(this.inteligencia){
-			case 1:
-				return -5;
-			case 2: case 3:
-				return -4;
-			case 4: case 5:
-				return -3;
-			case 6: case 7:
-				return -2;
-			case 8: case 9:
-				return -1;
-			case 10: case 11:
-				return 0;
-			case 12: case 13:
-				return 1;
-			case 14: case 15:
-				return 2;
-			case 16: case 17:
-				return 3;
-			case 18: case 19:
-				return 4;
-			case 20:
-				return 5;
-			default:
-				return 6;
-		}
-	}
+        switch(this.inteligencia){
+            case 1:
+                    return -5;
+            case 2: case 3:
+                    return -4;
+            case 4: case 5:
+                    return -3;
+            case 6: case 7:
+                    return -2;
+            case 8: case 9:
+                    return -1;
+            case 10: case 11:
+                    return 0;
+            case 12: case 13:
+                    return 1;
+            case 14: case 15:
+                    return 2;
+            case 16: case 17:
+                    return 3;
+            case 18: case 19:
+                    return 4;
+            case 20:
+                    return 5;
+            default:
+                    return 6;
+        }
+    }
 
-	public int modificadorSabedoria(){
+    public int modificadorSabedoria(){
 
-		switch(this.sabedoria){
-			case 1:
-				return -5;
-			case 2: case 3:
-				return -4;
-			case 4: case 5:
-				return -3;
-			case 6: case 7:
-				return -2;
-			case 8: case 9:
-				return -1;
-			case 10: case 11:
-				return 0;
-			case 12: case 13:
-				return 1;
-			case 14: case 15:
-				return 2;
-			case 16: case 17:
-				return 3;
-			case 18: case 19:
-				return 4;
-			case 20:
-				return 5;
-			default:
-				return 6;
-		}
-	}
+        switch(this.sabedoria){
+            case 1:
+                    return -5;
+            case 2: case 3:
+                    return -4;
+            case 4: case 5:
+                    return -3;
+            case 6: case 7:
+                    return -2;
+            case 8: case 9:
+                    return -1;
+            case 10: case 11:
+                    return 0;
+            case 12: case 13:
+                    return 1;
+            case 14: case 15:
+                    return 2;
+            case 16: case 17:
+                    return 3;
+            case 18: case 19:
+                    return 4;
+            case 20:
+                    return 5;
+            default:
+                    return 6;
+        }
+    }
 
-	public int modificadorCarisma(){
+    public int modificadorCarisma(){
 
-		switch(this.carisma){
-			case 1:
-				return -5;
-			case 2: case 3:
-				return -4;
-			case 4: case 5:
-				return -3;
-			case 6: case 7:
-				return -2;
-			case 8: case 9:
-				return -1;
-			case 10: case 11:
-				return 0;
-			case 12: case 13:
-				return 1;
-			case 14: case 15:
-				return 2;
-			case 16: case 17:
-				return 3;
-			case 18: case 19:
-				return 4;
-			case 20:
-				return 5;
-			default:
-				return 6;
-		}
-	}
+       switch(this.carisma){
+            case 1:
+                    return -5;
+            case 2: case 3:
+                    return -4;
+            case 4: case 5:
+                    return -3;
+            case 6: case 7:
+                    return -2;
+            case 8: case 9:
+                    return -1;
+            case 10: case 11:
+                    return 0;
+            case 12: case 13:
+                    return 1;
+            case 14: case 15:
+                    return 2;
+            case 16: case 17:
+                    return 3;
+            case 18: case 19:
+                    return 4;
+            case 20:
+                    return 5;
+            default:
+                    return 6;
+        }
+    }
 
 }
