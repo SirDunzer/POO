@@ -254,6 +254,28 @@ public class Personagem extends Atributos implements Classe_Raca{
             }
         }
     }
+    
+    public void calcularRiquesa(){
+        switch(this.classe){
+            
+            case BARBARO:
+                this.Riquesa = 10;
+                break;   
+                
+            case GUERREIRO:
+            case CACADOR:
+                this.Riquesa = 30;
+                break;
+                
+            case MAGO:
+                this.Riquesa = 50;
+                break;
+                
+            case LADINO:
+                this.Riquesa = 100;
+                break;
+        }
+    }
 
     @Override
     public String toString(){
@@ -380,7 +402,7 @@ public class Personagem extends Atributos implements Classe_Raca{
             case ESPADA:
                 X = d.rolarD20();
                 if(X > Defensor.getDefesa()){
-                        Dano = Atacante.modificadorForca() + ArmaEscolhida.getDado();
+                    Dano = Atacante.modificadorForca() + ArmaEscolhida.getDado();
                 }
                 if(X == 20){Dano *= 2;}
                 Defensor.alteraHP(Dano*-1);
@@ -391,7 +413,7 @@ public class Personagem extends Atributos implements Classe_Raca{
             case ADAGA:
                 X = d.rolarD20();
                 if(X > Defensor.getDefesa()){
-                        Dano = Atacante.modificadorDestreza() + ArmaEscolhida.getDado();
+                    Dano = Atacante.modificadorDestreza() + ArmaEscolhida.getDado();
                 }
                 if(X == 20){Dano *= 2;}
                 Defensor.alteraHP(Dano*-1);

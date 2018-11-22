@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) throws Exception{
-        // Aqui ao invés deste menu() eu instancio objetos da facade, da interface gráfica e do dao
+        // Aqui ao invés deste menu() eu instancio objetos da façade, da interface gráfica e do dao
         // talvez passando eles como argumentos uns aos outros.
         menu();
     }
