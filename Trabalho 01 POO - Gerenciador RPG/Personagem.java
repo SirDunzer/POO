@@ -10,9 +10,10 @@ public class Personagem extends Atributos implements Classe_Raca{
     private final Classe classe;
     private boolean estaVivo;
     private int HP_Atual;
-    private int Defesa; // adicionar método para equipar item e, se for armadura, adicionar a este valor
-    private String[] itens_Equipados; // Total de itens que o personagem pode ter equipado
-    private String[] itens_Guardados; // Total de itens não equipados que o personagem pode carregar em um dado momento
+    private int Defesa;
+    private int Riquesa;
+    private String[] itens_Equipados; // Itens que o personagem tem equipado neste momento
+    private String[] itens_Guardados; // Itens não equipados que o personagem tem neste momento
 
     public Personagem(String nome,Raca race, Classe classe){
         super(race);
@@ -25,16 +26,13 @@ public class Personagem extends Atributos implements Classe_Raca{
 
         this.itens_Equipados = new String[(this.getDestreza()/3) + 3];
         // Tendo o 3 como base para caso o personagem tenho destreza baixa
-        // Isso significa que um personagem pode, no minÃ­mo, ter 3 itens equipados ao mesmo tempo
-        // E, no mÃ¡ximo, 10 eu acho (elfo que rolou 20 para destreza)
 
         this.itens_Guardados = new String[(this.getConstituicao()/2)+10];
         // Tendo 10 como base para caso o personagem tenha constituicao baixa
-        // Isso significa que um personagem pode, no minÃ­mo, carregar 10 itens
-        // E, no mÃ¡ximo, 21 eu acho (anÃ£o que rolou 20 para constituicao)
 
         this.estaVivo = true;
         this.Defesa = 0;
+        this.Riquesa = 0;
     }
 
     public String getNome() {
@@ -51,6 +49,10 @@ public class Personagem extends Atributos implements Classe_Raca{
 
     public int getDefesa(){
             return this.Defesa;
+    }
+    
+    public int getRiquesa(){
+        return this.Riquesa;
     }
 
     public boolean checkVivo(){
@@ -96,92 +98,146 @@ public class Personagem extends Atributos implements Classe_Raca{
     }
 
     public Classe getClasse(){
-        Classe X = null;
-        switch(this.classe){
-            case BARBARO:
-                X = Classe.BARBARO;
-                break;
-            case GUERREIRO:
-                X = Classe.GUERREIRO;
-                break;
-            case LADINO:
-                X = Classe.LADINO;
-                break;
-            case MAGO:
-                X = Classe.MAGO;
-                break;
-            case CACADOR:
-                X = Classe.CACADOR;
-                break;
-        }
-        return X;
+        return this.classe;
     }
     
     public Raca getRaca(){
-        Raca X = null;
-        switch(this.race){
-            case ANAO:
-                X = Raca.ANAO;
-                break;
-            case HUMANO:
-                X = Raca.HUMANO;
-                break;
-            case ELFO:
-                X = Raca.ELFO;
-                break;
-        }
-        return X;
+        return this.race;
     }    
     
-    // quando for utilizar este método, deve-se impedir que sejam selecionadas magias
-    public void equiparItem(String Equip){
-        boolean Equipou = false;
-
+    // Quando equipar uma armadura deverá recalcular a defesa
+    
+    public void equiparArma(Equipamentos.Armas arma){
         for(int i=0;i<(super.getDestreza()/3)+3;i++){
             if(this.itens_Equipados[i] == null){
-                this.itens_Equipados[i] = Equip;
-                Equipou = true;
+                itens_Equipados[i] = arma.toString();
+                return;
             }
-            if(Equipou){break;}
         }
-
-        if(Equipou){return;}
-        else{
-            System.err.println(this.nome+" Não pode equipar mais nenhum Item !");
-            return;
+        System.err.println(this.nome+" Não pode equipar mais nenhum Item !");
+    }
+    
+    public void equiparArmadura(Equipamentos.Armaduras armadura){
+        
+        for(int i=0;i<(super.getDestreza()/3)+3;i++){    
+            if(this.itens_Equipados[i] == null){        
+                for(String s : this.itens_Equipados){
+                    if(s.equals("Armadura Leve") || s.equals("Armadura Media") || s.equals("Armadura Pesada")){
+                        System.err.println(this.nome+" Não Pode Equipar Mais de Duas Armaduras ao Mesmo Tempo!");
+                        return;
+                    }
+                }
+                this.itens_Equipados[i] = armadura.toString();
+                return;
+            }
         }
+        System.err.println(this.nome+" Não pode equipar mais nenhum Item !");
+    }
+    
+    public void guardarArma(Equipamentos.Armas arma){
+        for(int i=0;i<(super.getConstituicao()/3)+3;i++){
+            if(this.itens_Guardados[i] == null){
+                itens_Guardados[i] = arma.toString();
+                return;
+            }
+        }
+        System.err.println(this.nome+" Não pode guardar mais nenhum Item !");
+    }
+    
+    public void guardarArmadura(Equipamentos.Armaduras armadura){
+        for(int i=0;i<(super.getConstituicao()/3)+3;i++){
+            if(this.itens_Guardados[i] == null){
+                itens_Guardados[i] = armadura.toString();
+                return;
+            }
+        }
+        System.err.println(this.nome+" Não pode guardar mais nenhum Item !");
+    }
+    
+    public void removerItemEquipado(String Item){
+        for(int i = 0; i < this.itens_Equipados.length;i++){
+            if(itens_Equipados[i].equals(Item)){
+                itens_Equipados[i] = null;
+                return;
+            }
+        }
+        System.err.println("Não Equipou "+Item);
+    }
+    
+    public void removerItemGuardado(String Item){
+        for(int i = 0; i < this.itens_Guardados.length;i++){
+            if(itens_Guardados[i].equals(Item)){
+                itens_Guardados[i] = null;
+                return;
+            }
+        }
+        System.err.println("Não Guardou "+Item);
+    }
+    
+    public void equiparItemGuardado(String Item){ // mover item que esta guardado para um equipado
+        for(int i = 0; i < this.itens_Guardados.length;i++){
+            if(this.itens_Guardados[i].equals(Item)){
+                for(int j = 0; j < this.itens_Equipados.length;j++){
+                    if(this.itens_Equipados[j] == null){
+                        this.itens_Equipados[j] = this.itens_Guardados[i];
+                        this.itens_Guardados[i] = null;
+                        return;
+                    }
+                }
+            }
+        }
+        System.err.println("Voce não esta com "+Item+" guardado ou não tem mais espaço para equipar itens");
     }
 
-    public void guardarItem(String Equip){
-        boolean Guardou = false;
-
-    for(int i=0;i<(super.getConstituicao()/2)+10;i++){
-
-        if(this.itens_Guardados[i] == null){
-            this.itens_Guardados[i] = Equip;
-            Guardou = true;
+    public void guardarItemEquipado(String Item){
+        for(int i = 0; i < this.itens_Equipados.length;i++){
+            if(this.itens_Equipados[i].equals(Item)){
+                for(int j = 0; j < this.itens_Guardados.length;j++){
+                    if(this.itens_Guardados[j] == null){
+                        this.itens_Guardados[j] = this.itens_Equipados[i];
+                        this.itens_Equipados[i] = null;
+                        return;
+                    }
+                }
+            }
         }
-        if(Guardou){break;}
+        System.err.println("Voce não esta com "+Item+" equipado ou não tem mais espaço para guardar itens");        
     }
-
-    if(Guardou){return;}
-    else{
-        System.err.println(this.nome+" Não pode carregar mais nenhum Item !");
-        return;
+    
+    public void trocarEquipado_Guardado(String Equipado, String Guardado){
+        for(int i = 0; i < this.itens_Guardados.length;i++){
+            if(this.itens_Guardados[i].equals(Guardado)){
+                for(int j = 0; j < this.itens_Equipados.length;j++){
+                    if(this.itens_Equipados[j] == Equipado){
+                        this.itens_Equipados[j] = Guardado;
+                        this.itens_Guardados[i] = Equipado;
+                        return;
+                    }
+                }
+            }
+        }
+        System.err.println("Não foi possível fazer essa Troca");
     }
-}
-
+    
     public void alteraHP(int Delta){
             this.HP_Atual += Delta;
-            if(Delta <= 0){
-                System.out.println(this.nome+" tomou "+Delta+" pontos de Dano !");
+            if(Delta < 0){
+                System.out.println(this.nome+" levou "+Delta+" pontos de Dano !");
+            }else if(Delta > 0){
+                System.out.println(this.nome+" regenerou "+Delta+" pontos de HP !");
             }else{
-                System.out.println(this.nome+" regenerou "+Delta+" pontos de HP ");
+                System.out.println(this.nome +" não levou Dano !");
             }
-            System.out.println("O HP Atual de "+this.nome+" é: "+this.getHP_Atual());
             if(this.getHP_Atual() <= 0){
                 this.estaVivo = false;
+                return;
             }
+            System.out.println("O HP Atual de "+this.nome+" é: "+this.getHP_Atual());
+    }
+    
+    // Fazer método para exibir a riquesa
+    public void alteraRiquesa(int Delta){
+        this.Riquesa += Delta;
     }
 
     public void calcularDefesa(){
@@ -273,7 +329,7 @@ public class Personagem extends Atributos implements Classe_Raca{
         }
 }
 
-    //@overload
+    // @Overload
     public static void habilidadeEspecial(Personagem Proprio){
         Dados D = new Dados();
 
@@ -346,7 +402,7 @@ public class Personagem extends Atributos implements Classe_Raca{
 
 
     // Ataque Desarmado aka Soco
-//	@Overload
+    // @Overload
     public static void ataque(Personagem Atacante, Personagem Defensor){
         Dados d = new Dados();
         int Dano = 0;
