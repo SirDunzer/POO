@@ -21,11 +21,11 @@ public class Atributos {
         switch(raca){
             case ANAO:
                 constituicao += 2;
-            break;
+                break;
             
             case ELFO:
                 destreza += 2;
-            break;
+                break;
 
             case HUMANO:
                 forca += 1;
@@ -34,7 +34,22 @@ public class Atributos {
                 inteligencia += 1;
                 sabedoria += 1;
                 carisma += 1;
-            break;
+                break;
+            
+            case ORC:
+                forca += 1;
+                destreza += 1;
+                constituicao += 2;
+                inteligencia -= 1;
+                sabedoria -= 1;
+                carisma -= 2;
+                break;
+                
+            case GOBLIN:
+                destreza += 2;
+                constituicao -= 1;
+                forca -= 1;
+                break;
         }
     }
 

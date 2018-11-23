@@ -8,10 +8,12 @@ public interface Classe_Raca{
 	MAGO;
     }
 
-    public enum Raca {
+    public enum Raca { // adicionar a classe NPC
         ANAO,
         ELFO,
-        HUMANO;
+        HUMANO,
+        GOBLIN, // somente para NPCs inimigos
+        ORC;    // somente para NPCs inimigos
     }
 
 

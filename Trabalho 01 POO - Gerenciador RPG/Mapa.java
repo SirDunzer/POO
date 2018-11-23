@@ -10,6 +10,8 @@ import java.util.*;
 Fazer alguma classe que permita movimentar-se no mapa
 Fazer alguma classe que simule um sistema de turnos durante o combate
 Fazer alguma classe que permita interação com o jogador com o local onde ele está (caso não haja um inimigo nesse local)
+Fazer algo que remova um inimigo de uma tile do mapa caso ele já tenha sido enfrentado e derrotado
+De algum modo inserir na classe do personagem uma lista de todos os locais já visitados
 */
 
 public class Mapa {
@@ -33,8 +35,8 @@ public class Mapa {
         int x,y;
         List<Locais> LocalRandom = Collections.unmodifiableList(Arrays.asList(Locais.values()));
         Random R = new Random();
-        Coordenadas Temp;
-        Locais Possiveis;
+        Coordenadas Temp = null;
+        Locais Possiveis = null;
         Map<Coordenadas,Locais> Final = new HashMap<>();
         
         for(int i = 0; i < 256; i++){
@@ -44,9 +46,12 @@ public class Mapa {
                 Temp = new Coordenadas(x,y);
             }while(Final.containsKey(Temp)); // vai gerar novas coordenadas <X,Y> equanto não gerar uma única
             Possiveis = LocalRandom.get(R.nextInt(LocalRandom.size()));
-            Final.put(Temp,Possiveis);
+            Final.put(Temp,Possiveis); // fazer um scriptzinho para evitar mapas absurdos
+            // exemplo : mapa que seja 70 % baús ou coisa assim
         }
-        
+        Temp.setX(128);
+        Temp.setY(128);
+        Final.put(Temp,Locais.NADA); // garantindo que no spawn do player não vai haver nada
         return Final;
         
     }
@@ -83,7 +88,8 @@ public class Mapa {
         LOJA,
         FLORESTA,
         MONUMENTO,
-        CIDADE;
+        CIDADE,
+        NADA;
         
         @Override
         public String toString(){

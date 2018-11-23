@@ -1,6 +1,6 @@
 /*
- * Nessa classe é onde o personagem é definido
- * Essa classe implementa a interfaçe Classe e herda a classe Atributos(por facilidade)
+ * Fazer algum método que faça com que a partida acabe quaso o ultimo personagem jogável morrer
+ * Adicionar classes para os NPCs
  */
 
 public class Personagem extends Atributos implements Classe_Raca{
