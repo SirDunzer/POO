@@ -1,7 +1,3 @@
-/*
-* Enum do equipamento dos personagens
-*/
-
 public class Equipamentos{
 
     public enum Armas{
@@ -36,9 +32,7 @@ public class Equipamentos{
                 case ADAGA: Output = "Adaga"; break;
             }
             return Output;
-
         }
-
     }
 
     public enum Armaduras{ // O número é o valor de defesa da armadura
@@ -57,7 +51,6 @@ public class Equipamentos{
             return this.Valor;
         }
 
-
         @Override
         public String toString(){
             String Output = null;
@@ -69,9 +62,7 @@ public class Equipamentos{
                 case ESCUDO: Output = "Escudo"; break;
             }
             return Output;
-
         }
-
     }
 
         // Magos não precisam equipar magias
@@ -91,6 +82,16 @@ public class Equipamentos{
                 case RELAMPAGO: Output = D.rolarD10(); break;
             }
             return Output;
+        }
+        
+        public int getCustoMana(){
+            switch(this){
+                case BOLA_FOGO: return 6;
+                case BOLA_GELO: return 5;
+                case RELAMPAGO: return 10;
+                case CURAR: return 4;
+                default: return 0;
+            }
         }
     }
 }

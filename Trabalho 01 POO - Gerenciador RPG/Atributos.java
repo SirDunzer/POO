@@ -50,6 +50,14 @@ public class Atributos {
                 constituicao -= 1;
                 forca -= 1;
                 break;
+                
+            case GIGANTE:
+                forca += 5;
+                constituicao += 3;
+                destreza -= 3;
+                inteligencia -= 4;
+                sabedoria -= 5;
+                carisma -= 6;
         }
     }
 

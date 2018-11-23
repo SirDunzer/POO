@@ -3,15 +3,22 @@
  * Adicionar classes para os NPCs
  */
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+
 public class Personagem extends Atributos implements Classe_Raca{
     private final String nome;
     private final int HP_Base;
     private final Raca race;
     private final Classe classe;
-    private boolean estaVivo;
+    private final int Mana_Base;
     private int HP_Atual;
+    private int Mana_Atual;
     private int Defesa;
     private int Riquesa;
+    private boolean estaVivo;
     private String[] itens_Equipados; // Itens que o personagem tem equipado neste momento
     private String[] itens_Guardados; // Itens não equipados que o personagem tem neste momento
 
@@ -23,6 +30,8 @@ public class Personagem extends Atributos implements Classe_Raca{
 
         this.HP_Base = calcularHP(this.classe);
         this.HP_Atual = this.HP_Base;
+        this.Mana_Base = calcularMana(this.classe);
+        this.Mana_Atual = this.Mana_Base;
 
         this.itens_Equipados = new String[(this.getDestreza()/3) + 3];
         // Tendo o 3 como base para caso o personagem tenho destreza baixa
@@ -46,6 +55,14 @@ public class Personagem extends Atributos implements Classe_Raca{
     public int getHP_Atual(){
             return this.HP_Atual;
     }
+    
+    public int getMana_Base(){
+        return this.Mana_Base;
+    }
+    
+    public int getMana_Atual(){
+        return this.Mana_Atual;
+    }
 
     public int getDefesa(){
             return this.Defesa;
@@ -56,54 +73,85 @@ public class Personagem extends Atributos implements Classe_Raca{
     }
 
     public boolean checkVivo(){
-            return this.estaVivo;
-    }
-        
-    public String getStringClasse(){
-        String X = null;
-        switch(this.classe){
-            case BARBARO:
-                X = "Barbaro";
-                break;
-            case GUERREIRO:
-                X = "Guerreiro";
-                break;
-            case LADINO:
-                X = "Ladino";
-                break;
-            case MAGO:
-                X = "Mago";
-                break;
-            case CACADOR:
-                X = "Cacador";
-                break;
-        }
-        return X;
+        return this.estaVivo;
     }
     
-    public String getStringRaca(){
-        String X = null;
-        switch(this.race){
-            case ANAO:
-                X = "Anao";
-                break;
-            case HUMANO:
-                X = "Humano";
-                break;
-            case ELFO:
-                X = "Elfo";
-                break;
+    public boolean checkManasuficiente(int necessaria){
+        return this.Mana_Atual >= necessaria;
+    }
+        
+    @Override
+    public String getStringClasse(){
+        switch(this.classe){
+            case BARBARO: return "Barbaro";
+            case GUERREIRO: return "Guerreiro";
+            case LADINO: return "Ladino";
+            case MAGO: return "Mago";
+            case CACADOR: return "Cacador";
+            case LADRAO: return "Ladrao";
+            default: return null;
         }
-        return X;
+    }
+    
+    @Override
+    public String getStringRaca(){
+        switch(this.race){
+            case ANAO: return "Anao";
+            case HUMANO: return "Humano";
+            case ELFO: return "Elfo";
+            case GOBLIN: return "Goblin";
+            case ORC: return "Orc";
+            case OGRO: return "Ogro";
+            case GIGANTE: return "Gigante";
+            default: return null;
+        }
     }
 
+    @Override
     public Classe getClasse(){
         return this.classe;
     }
     
+    @Override
     public Raca getRaca(){
         return this.race;
-    }    
+    }
+
+    @Override
+    public Classe gerarClasseJogavelAleatoria(){
+        Classe C = null;
+        do{
+            Random R = new Random();
+            List<Classe> randomClasse = Collections.unmodifiableList(Arrays.asList(Classe.values()));
+            C = randomClasse.get(R.nextInt(randomClasse.size()));
+        }while(! C.equals(Classe_Raca.Classe.LADRAO));
+        return C;
+    }
+    
+    @Override
+    public Raca gerarRacaJogavelAleatoria(){
+        Raca R1 = null;
+        do{
+            Random R = new Random();
+            List<Raca> randomRaca = Collections.unmodifiableList(Arrays.asList(Raca.values()));
+            R1 = randomRaca.get(R.nextInt(randomRaca.size()));
+        }while(! R1.equals(Classe_Raca.Raca.GIGANTE) || ! R1.equals(Classe_Raca.Raca.ORC) || ! R1.equals(Classe_Raca.Raca.GOBLIN) || ! R1.equals(Classe_Raca.Raca.OGRO));
+        return R1;
+    }
+    
+    @Override
+    public Classe gerarClasseAleatoria(){
+        Random R = new Random();
+        List<Classe> randomClasse = Collections.unmodifiableList(Arrays.asList(Classe.values()));
+        return randomClasse.get(R.nextInt(randomClasse.size()));
+    }
+    
+    @Override
+    public Raca gerarRacaAleatoria(){
+        Random R = new Random();
+        List<Raca> randomRaca = Collections.unmodifiableList(Arrays.asList(Raca.values()));
+        return randomRaca.get(R.nextInt(randomRaca.size()));
+    }
     
     // Quando equipar uma armadura deverá recalcular a defesa
     
@@ -235,6 +283,18 @@ public class Personagem extends Atributos implements Classe_Raca{
             System.out.println("O HP Atual de "+this.nome+" é: "+this.getHP_Atual());
     }
     
+    public void alteraMana(int Delta){
+            this.Mana_Atual += Delta;
+            if(Delta < 0){
+                System.out.println(this.nome+" perdeu "+Delta+" pontos de Mana !");
+            }else if(Delta > 0){
+                System.out.println(this.nome+" regenerou "+Delta+" pontos de Mana !");
+            }else{
+                System.out.println(this.nome +" não gastou Mana !");
+            }
+            System.out.println("A Mana Atual de "+this.nome+" é: "+this.getMana_Atual());
+    }
+    
     // Fazer método para exibir a riquesa
     public void alteraRiquesa(int Delta){
         this.Riquesa += Delta;
@@ -274,6 +334,8 @@ public class Personagem extends Atributos implements Classe_Raca{
             case LADINO:
                 this.Riquesa = 100;
                 break;
+                
+            default: this.Riquesa = 0;
         }
     }
 
@@ -285,29 +347,29 @@ public class Personagem extends Atributos implements Classe_Raca{
     @Override
     public int calcularHP(Classe classe_escolhida){
         Dados D = new Dados();
-        int Output = 0;
-
+        
         switch(classe_escolhida){
-
-            case BARBARO:
-                Output = super.getConstituicao() + D.rolarD12();
-            break;
-
-            case MAGO:
-                Output = super.getConstituicao() + D.rolarD6();
-            break;
-
-            case GUERREIRO:
-            case CACADOR:
-                Output = super.getConstituicao() + D.rolarD10();
-            break;
-
-            case LADINO:
-                Output = super.getConstituicao() + D.rolarD8();
-            break;
-
+            case BARBARO: return super.getConstituicao() + D.rolarD12();
+            case MAGO: return super.getConstituicao() + D.rolarD6();
+            case GUERREIRO: case CACADOR: return super.getConstituicao() + D.rolarD10();
+            case LADINO: return super.getConstituicao() + D.rolarD8();
+            case LADRAO: return super.getConstituicao()-1 + D.rolarD6();
+            default: return -1;
         }
-        return Output;
+    }
+    
+    @Override
+    public int calcularMana(Classe classe_escolhida){
+        Dados D = new Dados();
+        
+        switch(classe_escolhida){
+            case BARBARO: return super.getSabedoria() + D.rolarD4();
+            case LADINO: case GUERREIRO: return super.getSabedoria() + D.rolarD6();
+            case CACADOR: return super.getSabedoria() + D.rolarD8();
+            case MAGO: return super.getSabedoria() + D.rolarD12();
+            case LADRAO: return super.getSabedoria()-1 + D.rolarD4();
+            default: return -1;
+        }
     }
 
     public static void habilidadeEspecial(Personagem Atacante, Personagem Defensor, Equipamentos.Armas ArmaEscolhida){
@@ -319,34 +381,46 @@ public class Personagem extends Atributos implements Classe_Raca{
         switch(Atacante.classe){
 
             case BARBARO:
-                X = D.rolarD20();
-                if(X > Defensor.getDefesa()){
-                    Dano = 2*Atacante.modificadorForca() + ArmaEscolhida.getDado() + D.rolarD12();
+                if(Atacante.checkManasuficiente(8)){
+                    X = D.rolarD20();
+                    if(X > Defensor.getDefesa()){
+                        Dano = 2*Atacante.modificadorForca() + ArmaEscolhida.getDado() + D.rolarD12();
+                    }
+                    if(Dano <= 0){Dano = 0;}
+                    if(X == 20){Dano *= 2;}
+                    Defensor.alteraHP(Dano*-1);   
+                }else{
+                    System.err.println("Não há mana Suficiente para isso !");
                 }
-                if(Dano <= 0){Dano = 0;}
-                if(X == 20){Dano *= 2;}
-                Defensor.alteraHP(Dano*-1);
                 break;
 
             case CACADOR:
-                X = D.rolarD20();
-                X1 = D.rolarD20();
-                if(X > Defensor.getDefesa() || X1 > Defensor.getDefesa()){
-                    Dano = ArmaEscolhida.getDado() + D.rolarD6();
+                if(Atacante.checkManasuficiente(6)){
+                    X = D.rolarD20();
+                    X1 = D.rolarD20();
+                    if(X > Defensor.getDefesa() || X1 > Defensor.getDefesa()){
+                        Dano = ArmaEscolhida.getDado() + D.rolarD6();
+                    }
+                    if(Dano <= 0){Dano = 0;}
+                    if(X == 20 || X1 == 20){Dano *= 2;}
+                    Defensor.alteraHP(Dano*-1);
+                }else{
+                    System.err.println("Não há mana Suficiente para isso !");
                 }
-                if(Dano <= 0){Dano = 0;}
-                if(X == 20 || X1 == 20){Dano *= 2;}
-                Defensor.alteraHP(Dano*-1);
                 break;
 
             case LADINO:
-                X = D.rolarD20();
-                X1 = D.rolarD20();
-                if(X + Atacante.modificadorDestreza() > X1 + Defensor.modificadorSabedoria()){
-                    Dano = ArmaEscolhida.getDado() + D.rolarD6() + D.rolarD6();
+                if(Atacante.checkManasuficiente(7)){
+                    X = D.rolarD20();
+                    X1 = D.rolarD20();
+                    if(X + Atacante.modificadorDestreza() > X1 + Defensor.modificadorSabedoria()){
+                        Dano = ArmaEscolhida.getDado() + D.rolarD6() + D.rolarD6();
+                    }
+                    if(Dano <= 0){Dano = 0;}
+                    Defensor.alteraHP(Dano*-1);
+                }else{
+                    System.err.println("Não há mana Suficiente para isso !");
                 }
-                if(Dano <= 0){Dano = 0;}
-                Defensor.alteraHP(Dano*-1);
                 break;
         }
 }
@@ -359,11 +433,16 @@ public class Personagem extends Atributos implements Classe_Raca{
 
             case GUERREIRO:
                 Proprio.alteraHP(D.rolarD10()); // Recuperar Folego
-            break;
+                Proprio.alteraMana(D.rolarD6());
+                break;
 
             case MAGO:
-                Proprio.alteraHP(D.rolarD8()); // Magia de Cura
-            break;
+                if(Proprio.checkManasuficiente(Equipamentos.Magias.CURAR.getCustoMana())){
+                    Proprio.alteraHP(D.rolarD8()); // Magia de Cura
+                }else{
+                    System.err.println("Não há mana Suficiente para isso !");
+                }
+                break;
         }
     }
 
@@ -374,20 +453,32 @@ public class Personagem extends Atributos implements Classe_Raca{
         switch(MagiaEscolhida){
 
             case BOLA_FOGO:
-                Dano += MagiaEscolhida.getDado();
-                if(D.rolarD20()+Defensor.getConstituicao() > 15){Dano /= 2;}
-                Defensor.alteraHP(Dano*-1);
+                if(Atacante.checkManasuficiente(Equipamentos.Magias.BOLA_FOGO.getCustoMana())){
+                    Dano += MagiaEscolhida.getDado();
+                    if(D.rolarD20()+Defensor.getConstituicao() > 15){Dano /= 2;}
+                    Defensor.alteraHP(Dano*-1);                    
+                }else{
+                    System.err.println("Não há mana Suficiente para isso !");
+                }
                 break;
 
             case BOLA_GELO:
-                Dano += MagiaEscolhida.getDado();
-                if(D.rolarD20()+Defensor.getConstituicao() > 15){Dano /= 2;}
-                Defensor.alteraHP(Dano*-1);
+                if(Atacante.checkManasuficiente(Equipamentos.Magias.BOLA_GELO.getCustoMana())){
+                    Dano += MagiaEscolhida.getDado();
+                    if(D.rolarD20()+Defensor.getConstituicao() > 15){Dano /= 2;}
+                    Defensor.alteraHP(Dano*-1);
+                }else{
+                    System.err.println("Não há mana Suficiente para isso !");
+                }
                 break;
 
             case RELAMPAGO:
-                Dano += MagiaEscolhida.getDado();
-                Defensor.alteraHP(Dano*-1);
+                if(Atacante.checkManasuficiente(Equipamentos.Magias.RELAMPAGO.getCustoMana())){                    
+                    Dano += MagiaEscolhida.getDado();
+                    Defensor.alteraHP(Dano*-1);
+                }else{
+                    System.err.println("Não há mana Suficiente para isso !");
+                }
                 break;
         }
     }
@@ -421,7 +512,6 @@ public class Personagem extends Atributos implements Classe_Raca{
         }
 
     }
-
 
     // Ataque Desarmado aka Soco
     // @Overload
