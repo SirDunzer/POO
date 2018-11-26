@@ -33,11 +33,10 @@ public class Personagem extends Atributos implements Classe_Raca{
         this.Mana_Base = calcularMana(this.classe);
         this.Mana_Atual = this.Mana_Base;
 
-        this.itens_Equipados = new String[(this.getDestreza()/3) + 3];
-        // Tendo o 3 como base para caso o personagem tenho destreza baixa
+        this.itens_Equipados = new String[(this.getDestreza()/3) + 3]; // mudar isso para ser to tipo enum de equipamentos
 
-        this.itens_Guardados = new String[(this.getConstituicao()/2)+10];
-        // Tendo 10 como base para caso o personagem tenha constituicao baixa
+        this.itens_Guardados = new String[(this.getConstituicao()/2)+10];// mudar isso para ser to tipo enum de equipamentos
+        // deveria tornar nossas vidas mais fáceis, apesar de que vai ser uma merda implementar
 
         this.estaVivo = true;
         this.Defesa = 0;
