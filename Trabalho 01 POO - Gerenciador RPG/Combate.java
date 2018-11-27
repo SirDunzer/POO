@@ -3,8 +3,6 @@
 * isso inclui turnos, uso de itens, ataques, tentativas de fuga, etc.
 */
 public class Combate {
-
-    
     
     static class Ataque{
     

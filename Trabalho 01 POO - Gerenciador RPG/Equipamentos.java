@@ -142,6 +142,7 @@ public class Equipamentos{
         @Override
         public String toString(){
             switch(this){
+                case FRUTA: return "Fruta";
                 case POCAO_HP: return "Poção de HP";
                 case POCAO_MANA: return "Poção de Mana";
                 case TESOURO: return "Tesouro";
