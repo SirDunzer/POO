@@ -10,18 +10,16 @@ import java.util.Random;
 
 public class Personagem extends Atributos implements Classe_Raca{
     private final String nome;
-    private final int HP_Base;
     private final Raca race;
     private final Classe classe;
+    private final int HP_Base;
     private final int Mana_Base;
     private int HP_Atual;
     private int Mana_Atual;
     private int Defesa;
-    private int Riquesa;
     private boolean estaVivo;
-    private String[] itens_Equipados; // Itens que o personagem tem equipado neste momento
-    private String[] itens_Guardados; // Itens não equipados que o personagem tem neste momento
-
+    private Inventario inventario;
+    
     public Personagem(String nome,Raca race, Classe classe){
         super(race);
        	this.nome = nome;
@@ -32,15 +30,10 @@ public class Personagem extends Atributos implements Classe_Raca{
         this.HP_Atual = this.HP_Base;
         this.Mana_Base = calcularMana(this.classe);
         this.Mana_Atual = this.Mana_Base;
-
-        this.itens_Equipados = new String[(this.getDestreza()/3) + 3]; // mudar isso para ser to tipo enum de equipamentos
-
-        this.itens_Guardados = new String[(this.getConstituicao()/2)+10];// mudar isso para ser to tipo enum de equipamentos
-        // deveria tornar nossas vidas mais fáceis, apesar de que vai ser uma merda implementar
+        this.inventario = new Inventario(this.getForca(),this.modificadorForca());
 
         this.estaVivo = true;
         this.Defesa = 0;
-        this.Riquesa = 0;
     }
 
     public String getNome() {
@@ -66,17 +59,9 @@ public class Personagem extends Atributos implements Classe_Raca{
     public int getDefesa(){
             return this.Defesa;
     }
-    
-    public int getRiquesa(){
-        return this.Riquesa;
-    }
 
     public boolean checkVivo(){
         return this.estaVivo;
-    }
-    
-    public boolean checkManasuficiente(int necessaria){
-        return this.Mana_Atual >= necessaria;
     }
         
     @Override
@@ -87,7 +72,7 @@ public class Personagem extends Atributos implements Classe_Raca{
             case LADINO: return "Ladino";
             case MAGO: return "Mago";
             case CACADOR: return "Cacador";
-            case LADRAO: return "Ladrao";
+            case BANDIDO: return "BANDIDO";
             default: return null;
         }
     }
@@ -123,7 +108,7 @@ public class Personagem extends Atributos implements Classe_Raca{
             Random R = new Random();
             List<Classe> randomClasse = Collections.unmodifiableList(Arrays.asList(Classe.values()));
             C = randomClasse.get(R.nextInt(randomClasse.size()));
-        }while(! C.equals(Classe_Raca.Classe.LADRAO));
+        }while(! C.equals(Classe_Raca.Classe.BANDIDO));
         return C;
     }
     
@@ -154,118 +139,6 @@ public class Personagem extends Atributos implements Classe_Raca{
     
     // Quando equipar uma armadura deverá recalcular a defesa
     
-    public void equiparArma(Equipamentos.Armas arma){
-        for(int i=0;i<(super.getDestreza()/3)+3;i++){
-            if(this.itens_Equipados[i] == null){
-                itens_Equipados[i] = arma.toString();
-                return;
-            }
-        }
-        System.err.println(this.nome+" Não pode equipar mais nenhum Item !");
-    }
-    
-    public void equiparArmadura(Equipamentos.Armaduras armadura){
-        
-        for(int i=0;i<(super.getDestreza()/3)+3;i++){    
-            if(this.itens_Equipados[i] == null){        
-                for(String s : this.itens_Equipados){
-                    if(s.equals("Armadura Leve") || s.equals("Armadura Media") || s.equals("Armadura Pesada")){
-                        System.err.println(this.nome+" Não Pode Equipar Mais de Duas Armaduras ao Mesmo Tempo!");
-                        return;
-                    }
-                }
-                this.itens_Equipados[i] = armadura.toString();
-                return;
-            }
-        }
-        System.err.println(this.nome+" Não pode equipar mais nenhum Item !");
-    }
-    
-    public void guardarArma(Equipamentos.Armas arma){
-        for(int i=0;i<(super.getConstituicao()/3)+3;i++){
-            if(this.itens_Guardados[i] == null){
-                itens_Guardados[i] = arma.toString();
-                return;
-            }
-        }
-        System.err.println(this.nome+" Não pode guardar mais nenhum Item !");
-    }
-    
-    public void guardarArmadura(Equipamentos.Armaduras armadura){
-        for(int i=0;i<(super.getConstituicao()/3)+3;i++){
-            if(this.itens_Guardados[i] == null){
-                itens_Guardados[i] = armadura.toString();
-                return;
-            }
-        }
-        System.err.println(this.nome+" Não pode guardar mais nenhum Item !");
-    }
-    
-    public void removerItemEquipado(String Item){
-        for(int i = 0; i < this.itens_Equipados.length;i++){
-            if(itens_Equipados[i].equals(Item)){
-                itens_Equipados[i] = null;
-                return;
-            }
-        }
-        System.err.println("Não Equipou "+Item);
-    }
-    
-    public void removerItemGuardado(String Item){
-        for(int i = 0; i < this.itens_Guardados.length;i++){
-            if(itens_Guardados[i].equals(Item)){
-                itens_Guardados[i] = null;
-                return;
-            }
-        }
-        System.err.println("Não Guardou "+Item);
-    }
-    
-    public void equiparItemGuardado(String Item){ // mover item que esta guardado para um equipado
-        for(int i = 0; i < this.itens_Guardados.length;i++){
-            if(this.itens_Guardados[i].equals(Item)){
-                for(int j = 0; j < this.itens_Equipados.length;j++){
-                    if(this.itens_Equipados[j] == null){
-                        this.itens_Equipados[j] = this.itens_Guardados[i];
-                        this.itens_Guardados[i] = null;
-                        return;
-                    }
-                }
-            }
-        }
-        System.err.println("Voce não esta com "+Item+" guardado ou não tem mais espaço para equipar itens");
-    }
-
-    public void guardarItemEquipado(String Item){
-        for(int i = 0; i < this.itens_Equipados.length;i++){
-            if(this.itens_Equipados[i].equals(Item)){
-                for(int j = 0; j < this.itens_Guardados.length;j++){
-                    if(this.itens_Guardados[j] == null){
-                        this.itens_Guardados[j] = this.itens_Equipados[i];
-                        this.itens_Equipados[i] = null;
-                        return;
-                    }
-                }
-            }
-        }
-        System.err.println("Voce não esta com "+Item+" equipado ou não tem mais espaço para guardar itens");        
-    }
-    
-    public void trocarEquipado_Guardado(String Equipado, String Guardado){
-        for(int i = 0; i < this.itens_Guardados.length;i++){
-            if(this.itens_Guardados[i].equals(Guardado)){
-                for(int j = 0; j < this.itens_Equipados.length;j++){
-                    if(this.itens_Equipados[j] == Equipado){
-                        this.itens_Equipados[j] = Guardado;
-                        this.itens_Guardados[i] = Equipado;
-                        return;
-                    }
-                }
-            }
-        }
-        System.err.println("Não foi possível fazer essa Troca");
-    }
-    
     public void alteraHP(int Delta){
             this.HP_Atual += Delta;
             if(Delta < 0){
@@ -294,47 +167,19 @@ public class Personagem extends Atributos implements Classe_Raca{
             System.out.println("A Mana Atual de "+this.nome+" é: "+this.getMana_Atual());
     }
     
-    // Fazer método para exibir a riquesa
-    public void alteraRiquesa(int Delta){
-        this.Riquesa += Delta;
-    }
-
+    // defesa é recalculada toda vez que uma armadura é equipada
     public void calcularDefesa(){
 
-        for(String Itens : this.itens_Equipados){
-            if(Itens.equals("Armadura Leve")){
+        for(Equipamentos.Armaduras A : this.inventario.getArmadurasEquipadas()){
+            if(A.equals(Equipamentos.Armaduras.LEVE)){
                     this.Defesa += 12;
-            }if(Itens.equals("Armadura Media")){
+            }if(A.equals(Equipamentos.Armaduras.MEDIA)){
                     this.Defesa += 14;
-            }if(Itens.equals("Armadura Pesada")){
+            }if(A.equals(Equipamentos.Armaduras.PESADA)){
                     this.Defesa += 18;
-            }if(Itens.equals("Escudo")){
+            }if(A.equals(Equipamentos.Armaduras.ESCUDO)){
                     this.Defesa += 2;
             }
-        }
-    }
-    
-    public void calcularRiquesa(){
-        switch(this.classe){
-            
-            case BARBARO:
-                this.Riquesa = 10;
-                break;   
-                
-            case GUERREIRO:
-            case CACADOR:
-                this.Riquesa = 30;
-                break;
-                
-            case MAGO:
-                this.Riquesa = 50;
-                break;
-                
-            case LADINO:
-                this.Riquesa = 100;
-                break;
-                
-            default: this.Riquesa = 0;
         }
     }
 
@@ -352,7 +197,7 @@ public class Personagem extends Atributos implements Classe_Raca{
             case MAGO: return super.getConstituicao() + D.rolarD6();
             case GUERREIRO: case CACADOR: return super.getConstituicao() + D.rolarD10();
             case LADINO: return super.getConstituicao() + D.rolarD8();
-            case LADRAO: return super.getConstituicao()-1 + D.rolarD6();
+            case BANDIDO: return super.getConstituicao()-1 + D.rolarD6();
             default: return -1;
         }
     }
@@ -366,7 +211,7 @@ public class Personagem extends Atributos implements Classe_Raca{
             case LADINO: case GUERREIRO: return super.getSabedoria() + D.rolarD6();
             case CACADOR: return super.getSabedoria() + D.rolarD8();
             case MAGO: return super.getSabedoria() + D.rolarD12();
-            case LADRAO: return super.getSabedoria()-1 + D.rolarD4();
+            case BANDIDO: return super.getSabedoria()-1 + D.rolarD4();
             default: return -1;
         }
     }
@@ -380,7 +225,7 @@ public class Personagem extends Atributos implements Classe_Raca{
         switch(Atacante.classe){
 
             case BARBARO:
-                if(Atacante.checkManasuficiente(8)){
+                if(Atacante.getMana_Atual() >= 8){
                     X = D.rolarD20();
                     if(X > Defensor.getDefesa()){
                         Dano = 2*Atacante.modificadorForca() + ArmaEscolhida.getDado() + D.rolarD12();
@@ -394,7 +239,7 @@ public class Personagem extends Atributos implements Classe_Raca{
                 break;
 
             case CACADOR:
-                if(Atacante.checkManasuficiente(6)){
+                if(Atacante.getMana_Atual() >= 6){
                     X = D.rolarD20();
                     X1 = D.rolarD20();
                     if(X > Defensor.getDefesa() || X1 > Defensor.getDefesa()){
@@ -409,7 +254,7 @@ public class Personagem extends Atributos implements Classe_Raca{
                 break;
 
             case LADINO:
-                if(Atacante.checkManasuficiente(7)){
+                if(Atacante.getMana_Atual() >= 7){
                     X = D.rolarD20();
                     X1 = D.rolarD20();
                     if(X + Atacante.modificadorDestreza() > X1 + Defensor.modificadorSabedoria()){
@@ -436,7 +281,7 @@ public class Personagem extends Atributos implements Classe_Raca{
                 break;
 
             case MAGO:
-                if(Proprio.checkManasuficiente(Equipamentos.Magias.CURAR.getCustoMana())){
+                if(Proprio.getMana_Atual() >= Equipamentos.Magias.CURAR.getCustoMana()){
                     Proprio.alteraHP(D.rolarD8()); // Magia de Cura
                 }else{
                     System.err.println("Não há mana Suficiente para isso !");
@@ -452,7 +297,7 @@ public class Personagem extends Atributos implements Classe_Raca{
         switch(MagiaEscolhida){
 
             case BOLA_FOGO:
-                if(Atacante.checkManasuficiente(Equipamentos.Magias.BOLA_FOGO.getCustoMana())){
+                if(Atacante.getMana_Atual() >= Equipamentos.Magias.BOLA_FOGO.getCustoMana()){
                     Dano += MagiaEscolhida.getDado();
                     if(D.rolarD20()+Defensor.getConstituicao() > 15){Dano /= 2;}
                     Defensor.alteraHP(Dano*-1);                    
@@ -462,7 +307,7 @@ public class Personagem extends Atributos implements Classe_Raca{
                 break;
 
             case BOLA_GELO:
-                if(Atacante.checkManasuficiente(Equipamentos.Magias.BOLA_GELO.getCustoMana())){
+                if(Atacante.getMana_Atual() >= Equipamentos.Magias.BOLA_GELO.getCustoMana()){
                     Dano += MagiaEscolhida.getDado();
                     if(D.rolarD20()+Defensor.getConstituicao() > 15){Dano /= 2;}
                     Defensor.alteraHP(Dano*-1);
@@ -472,7 +317,7 @@ public class Personagem extends Atributos implements Classe_Raca{
                 break;
 
             case RELAMPAGO:
-                if(Atacante.checkManasuficiente(Equipamentos.Magias.RELAMPAGO.getCustoMana())){                    
+                if(Atacante.getMana_Atual() >= Equipamentos.Magias.RELAMPAGO.getCustoMana()){                    
                     Dano += MagiaEscolhida.getDado();
                     Defensor.alteraHP(Dano*-1);
                 }else{

@@ -19,6 +19,17 @@ public class Equipamentos{
             }
             return Output;
         }
+        
+        public int getPeso(){
+            switch(this){
+                case ESPADALONGA: return 5;
+                case ESPADA: return 3;
+                case ARCOLONGO: return 3;
+                case ARCOCURTO: return 2;
+                case ADAGA: return 1;
+                default: return 0;
+            }
+        }
 
         @Override
         public String toString(){
@@ -50,6 +61,16 @@ public class Equipamentos{
         public int getValor(){
             return this.Valor;
         }
+        
+        public int getPeso(){
+            switch(this){
+                case LEVE: return 9;
+                case MEDIA: return 12;
+                case PESADA: return 15;
+                case ESCUDO: return 2;
+                default: return 0;
+            }
+        }
 
         @Override
         public String toString(){
@@ -65,8 +86,6 @@ public class Equipamentos{
         }
     }
 
-        // Magos não precisam equipar magias
-        // Eles sempre terão elas
     public enum Magias{ // Ignoram a armadura, mas se o alvo rolar (d20+const > 15) toma metade do dano
         BOLA_FOGO, // Dano: 3d4
         BOLA_GELO, // Dano: 2d6
@@ -93,5 +112,42 @@ public class Equipamentos{
                 default: return 0;
             }
         }
+    }
+    
+    public enum Itens{
+        FRUTA        (0),
+        POCAO_HP     (10),
+        POCAO_MANA   (12),
+        TESOURO      (100);
+        
+        private final int Valor;
+
+        Itens(int Valor){
+            this.Valor = Valor;
+        }
+
+        public int getValor(){
+            return this.Valor;
+        }
+        
+        public int getPeso(){
+            switch(this){
+                case FRUTA: return 0;
+                case POCAO_HP: case POCAO_MANA: return 1;
+                case TESOURO: return 10;
+                default: return 0;                
+            }
+        }
+        
+        @Override
+        public String toString(){
+            switch(this){
+                case POCAO_HP: return "Poção de HP";
+                case POCAO_MANA: return "Poção de Mana";
+                case TESOURO: return "Tesouro";
+                default: return null;
+            }
+        }
+        
     }
 }

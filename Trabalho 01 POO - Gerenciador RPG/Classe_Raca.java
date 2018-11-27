@@ -6,7 +6,7 @@ public interface Classe_Raca{
 	GUERREIRO,
 	LADINO,
 	MAGO,
-        LADRAO; // ladino só que pior || somente para NPCs inimigos
+        BANDIDO; // ladino só que pior || somente para NPCs inimigos
     }
 
     public enum Raca { // adicionar a classe NPC

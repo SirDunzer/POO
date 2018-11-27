@@ -19,7 +19,7 @@ public class Mapa {
     Coordenadas posicaoInicial;
     Map<Coordenadas,Locais> pontosInteresse;
     
-    public Mapa(int total_Players){
+    public Mapa(){
         this.Mundo = new int[256][256];
         for(int i=0;i<256;i++){
             for(int j=0;j<256;j++){
@@ -32,31 +32,53 @@ public class Mapa {
     }
     
     Map<Coordenadas,Locais> geraPontosInteresse(){
-        int x,y;
+        int x,y,z;
         List<Locais> LocalRandom = Collections.unmodifiableList(Arrays.asList(Locais.values()));
         Random R = new Random();
         Coordenadas Temp = null;
         Locais Possiveis = null;
         Map<Coordenadas,Locais> Final = new HashMap<>();
         
-        for(int i = 0; i < 256; i++){
-            for(int j = 0; j < 256; j++){
-                for(int k = 0; k < 256; k++){
-                    Temp = new Coordenadas(j,k);
-                }
+        for(int j = 0; j < 256; j++){
+            for(int k = 0; k < 256; k++){
+                Temp = new Coordenadas(j,k);
+                Possiveis = Locais.NADA;
+                Final.put(Temp,Possiveis);
             }
-            Possiveis = Locais.NADA;
-            Final.put(Temp,Possiveis); // fazer um scriptzinho para evitar mapas absurdos
-            // exemplo : mapa que seja 70 % baús ou coisa assim
         }
         
-        for(int i = 0; i< 220; i++){
-            do{
-                x = R.nextInt(256); // enquanto ele não selecionar uma tile vazia 
-                y = R.nextInt(256); // vai ficar recalculando as coordenadas
-                Temp = new Coordenadas(x,y);
-            }while(! Final.containsValue(Locais.NADA));
-            Possiveis = LocalRandom.get(R.nextInt(LocalRandom.size()));
+        for(int i = 0; i< 2400; i++){
+            x = R.nextInt(256); // enquanto ele não selecionar uma tile vazia 
+            y = R.nextInt(256); // vai ficar recalculando as coordenadas
+            z = R.nextInt(100);
+            Temp = new Coordenadas(x,y);
+            
+            if(z == 1){
+                if(R.nextInt(2) == 1){
+                    Possiveis = Locais.BAU;
+                }else{
+                    Possiveis = Locais.LOJA;
+                }
+            }else if(z > 1 && z <= 6){
+                if(R.nextInt(2) == 1){
+                    Possiveis = Locais.CIDADE;
+                }else{
+                    Possiveis = Locais.VILAREJO;
+                }
+            }else if(z > 6 && z <= 11){
+                
+                if(R.nextInt(2) == 1){
+                    Possiveis = Locais.OBELISCO;
+                }else{
+                    Possiveis = Locais.MONUMENTO;
+                }
+            }else if(z >= 12 && z <= 32){
+                Possiveis = Locais.FLORESTA;
+            }else if(z >= 33 && z <= 63){
+                Possiveis = Locais.INIMIGO;
+            }else{
+                Possiveis = Locais.NADA;
+            }
             Final.put(Temp,Possiveis);
         }
         
