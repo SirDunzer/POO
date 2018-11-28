@@ -57,7 +57,7 @@ public class Personagem extends Atributos implements Classe_Raca{
     }
 
     public int getDefesa(){
-            return this.Defesa;
+        return this.Defesa;
     }
 
     public boolean checkVivo(){
@@ -137,8 +137,6 @@ public class Personagem extends Atributos implements Classe_Raca{
         return randomRaca.get(R.nextInt(randomRaca.size()));
     }
     
-    // Quando equipar uma armadura deverá recalcular a defesa
-    
     public void alteraHP(int Delta){
             this.HP_Atual += Delta;
             if(Delta < 0){
@@ -170,15 +168,15 @@ public class Personagem extends Atributos implements Classe_Raca{
     // defesa é recalculada toda vez que uma armadura é equipada
     public void calcularDefesa(){
 
-        for(Equipamentos.Armaduras A : this.inventario.getArmadurasEquipadas()){
-            if(A.equals(Equipamentos.Armaduras.LEVE)){
-                    this.Defesa += 12;
-            }if(A.equals(Equipamentos.Armaduras.MEDIA)){
-                    this.Defesa += 14;
-            }if(A.equals(Equipamentos.Armaduras.PESADA)){
-                    this.Defesa += 18;
-            }if(A.equals(Equipamentos.Armaduras.ESCUDO)){
-                    this.Defesa += 2;
+        for(Inventario.Equipamentos.Armaduras A : this.inventario.getArmadurasEquipadas()){
+            if(A.equals(Inventario.Equipamentos.Armaduras.LEVE)){
+                this.Defesa += 12;
+            }if(A.equals(Inventario.Equipamentos.Armaduras.MEDIA)){
+                this.Defesa += 14;
+            }if(A.equals(Inventario.Equipamentos.Armaduras.PESADA)){
+                this.Defesa += 18;
+            }if(A.equals(Inventario.Equipamentos.Armaduras.ESCUDO)){
+                this.Defesa += 2;
             }
         }
     }
@@ -215,161 +213,9 @@ public class Personagem extends Atributos implements Classe_Raca{
             default: return -1;
         }
     }
-
-    public static void habilidadeEspecial(Personagem Atacante, Personagem Defensor, Equipamentos.Armas ArmaEscolhida){
-        int Dano = 0;
-        Dados D = new Dados();
-        int X = 0; // para verificar se houve um critico
-        int X1 = 0;
-
-        switch(Atacante.classe){
-
-            case BARBARO:
-                if(Atacante.getMana_Atual() >= 8){
-                    X = D.rolarD20();
-                    if(X > Defensor.getDefesa()){
-                        Dano = 2*Atacante.modificadorForca() + ArmaEscolhida.getDado() + D.rolarD12();
-                    }
-                    if(Dano <= 0){Dano = 0;}
-                    if(X == 20){Dano *= 2;}
-                    Defensor.alteraHP(Dano*-1);   
-                }else{
-                    System.err.println("Não há mana Suficiente para isso !");
-                }
-                break;
-
-            case CACADOR:
-                if(Atacante.getMana_Atual() >= 6){
-                    X = D.rolarD20();
-                    X1 = D.rolarD20();
-                    if(X > Defensor.getDefesa() || X1 > Defensor.getDefesa()){
-                        Dano = ArmaEscolhida.getDado() + D.rolarD6();
-                    }
-                    if(Dano <= 0){Dano = 0;}
-                    if(X == 20 || X1 == 20){Dano *= 2;}
-                    Defensor.alteraHP(Dano*-1);
-                }else{
-                    System.err.println("Não há mana Suficiente para isso !");
-                }
-                break;
-
-            case LADINO:
-                if(Atacante.getMana_Atual() >= 7){
-                    X = D.rolarD20();
-                    X1 = D.rolarD20();
-                    if(X + Atacante.modificadorDestreza() > X1 + Defensor.modificadorSabedoria()){
-                        Dano = ArmaEscolhida.getDado() + D.rolarD6() + D.rolarD6();
-                    }
-                    if(Dano <= 0){Dano = 0;}
-                    Defensor.alteraHP(Dano*-1);
-                }else{
-                    System.err.println("Não há mana Suficiente para isso !");
-                }
-                break;
-        }
-}
-
-    // @Overload
-    public static void habilidadeEspecial(Personagem Proprio){
-        Dados D = new Dados();
-
-        switch(Proprio.classe){
-
-            case GUERREIRO:
-                Proprio.alteraHP(D.rolarD10()); // Recuperar Folego
-                Proprio.alteraMana(D.rolarD6());
-                break;
-
-            case MAGO:
-                if(Proprio.getMana_Atual() >= Equipamentos.Magias.CURAR.getCustoMana()){
-                    Proprio.alteraHP(D.rolarD8()); // Magia de Cura
-                }else{
-                    System.err.println("Não há mana Suficiente para isso !");
-                }
-                break;
-        }
-    }
-
-    public static void usarMagia(Personagem Atacante, Personagem Defensor, Equipamentos.Magias MagiaEscolhida){
-        int Dano = 0;
-        Dados D = new Dados();
-
-        switch(MagiaEscolhida){
-
-            case BOLA_FOGO:
-                if(Atacante.getMana_Atual() >= Equipamentos.Magias.BOLA_FOGO.getCustoMana()){
-                    Dano += MagiaEscolhida.getDado();
-                    if(D.rolarD20()+Defensor.getConstituicao() > 15){Dano /= 2;}
-                    Defensor.alteraHP(Dano*-1);                    
-                }else{
-                    System.err.println("Não há mana Suficiente para isso !");
-                }
-                break;
-
-            case BOLA_GELO:
-                if(Atacante.getMana_Atual() >= Equipamentos.Magias.BOLA_GELO.getCustoMana()){
-                    Dano += MagiaEscolhida.getDado();
-                    if(D.rolarD20()+Defensor.getConstituicao() > 15){Dano /= 2;}
-                    Defensor.alteraHP(Dano*-1);
-                }else{
-                    System.err.println("Não há mana Suficiente para isso !");
-                }
-                break;
-
-            case RELAMPAGO:
-                if(Atacante.getMana_Atual() >= Equipamentos.Magias.RELAMPAGO.getCustoMana()){                    
-                    Dano += MagiaEscolhida.getDado();
-                    Defensor.alteraHP(Dano*-1);
-                }else{
-                    System.err.println("Não há mana Suficiente para isso !");
-                }
-                break;
-        }
-    }
-
-    public static void ataque(Personagem Atacante, Personagem Defensor, Equipamentos.Armas ArmaEscolhida){
-        Dados d = new Dados();
-        int Dano = 0;
-        int X = 0;
-
-        switch(ArmaEscolhida){
-            case ESPADALONGA:
-            case ESPADA:
-                X = d.rolarD20();
-                if(X > Defensor.getDefesa()){
-                    Dano = Atacante.modificadorForca() + ArmaEscolhida.getDado();
-                }
-                if(X == 20){Dano *= 2;}
-                Defensor.alteraHP(Dano*-1);
-            break;
-
-            case ARCOLONGO:
-            case ARCOCURTO:
-            case ADAGA:
-                X = d.rolarD20();
-                if(X > Defensor.getDefesa()){
-                    Dano = Atacante.modificadorDestreza() + ArmaEscolhida.getDado();
-                }
-                if(X == 20){Dano *= 2;}
-                Defensor.alteraHP(Dano*-1);
-            break;
-        }
-
-    }
-
-    // Ataque Desarmado aka Soco
-    // @Overload
-    public static void ataque(Personagem Atacante, Personagem Defensor){
-        Dados d = new Dados();
-        int Dano = 0;
-        int X = 0;
-
-        X = d.rolarD20();
-        if(X > Defensor.getDefesa()){
-                Dano = Atacante.modificadorForca() + d.rolarD4();
-        }
-        if(X == 20){Dano *= 2;}
-        Defensor.alteraHP(Dano*-1);
+    
+    public static void kill(Personagem P){
+        P = null;
     }
 
 }

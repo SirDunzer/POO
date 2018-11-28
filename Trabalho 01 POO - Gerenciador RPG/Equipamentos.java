@@ -1,8 +1,9 @@
-public class Equipamentos{
+class Equipamentos{
 
     public enum Armas{
         ESPADALONGA, // Dano: 1d10 + força
-        ESPADA,      // Dano: 1d8  + força
+        MACHADO,     // Dano: 1d8  + força
+        ESPADA,      // Dano: 1d6  + força
         ARCOLONGO,   // Dano: 1d8  + destreza
         ARCOCURTO,   // Dano: 1d6  + destreza
         ADAGA;	     // Dano: 1d4  + destreza
@@ -12,7 +13,8 @@ public class Equipamentos{
             Dados D = new Dados();
             switch(this){
                 case ESPADALONGA: Output = D.rolarD10(); break;
-                case ESPADA: Output = D.rolarD8(); break;
+                case MACHADO: Output = D.rolarD8(); break;
+                case ESPADA: Output = D.rolarD6(); break;
                 case ARCOLONGO: Output = D.rolarD8(); break;
                 case ARCOCURTO: Output = D.rolarD6(); break;
                 case ADAGA: Output = D.rolarD4(); break;
@@ -23,6 +25,7 @@ public class Equipamentos{
         public int getPeso(){
             switch(this){
                 case ESPADALONGA: return 5;
+                case MACHADO: return 4;
                 case ESPADA: return 3;
                 case ARCOLONGO: return 3;
                 case ARCOCURTO: return 2;
@@ -37,6 +40,7 @@ public class Equipamentos{
 
             switch(this){
                 case ESPADALONGA: Output = "Espada Longa"; break;
+                case MACHADO: Output = "Machado de Guerra"; break;
                 case ESPADA: Output = "Espada"; break;
                 case ARCOLONGO: Output = "Arco Longo"; break;
                 case ARCOCURTO: Output = "Arco Curto"; break;
