@@ -1,0 +1,12 @@
+_numeroPersonagens
+nome;raca;classe;_forca;_destreza;_consituicao;_inteligencia;_sabedoria;_carisma;_hp-base;_hp-atual;_mana-base;_mana-atual;{_coordXAtual,_coordYAtual};_totalPontosVisitados;{_XvisitadoN,_YvisitadoM};(_riquesa;_totalArmas;armasEquipadas;_totalArmaduras;armadurasEquipadas;_totalItensGuardados;itensGuardados)
+// ^^ repetido para o total de personagens, todos separados por linha											                     ^^ repete para todos os pares <X,Y> visitados
+_linha em branco extra_
+(_coordX,_coordY-tipoDeLocal);
+// ^^repetido para todos os pontos de interesse
+
+LEGENDA:	
+	algumaCoisa   : Uma string
+	_algumaCoisa  : Um valor numérico
+	(algumaCoisa) : Alguma coisa dentro de parenteses
+	{algumaCoisa} : Alguma coisa dentro de chaves

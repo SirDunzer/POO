@@ -5,7 +5,7 @@ public class FachadaInterface {
 //    Mapa mapaJogo;
 //    private int totalJogadores;
     
-    public FachadaInterface(/*Recebe a Interface como argumentos*/){
+    public FachadaInterface(/*Recebe a Interface como argumento*/){
         /*A partir dai ele gerencia o tudo que ocorre entre o usuário e a camada de dados*/
     }
     
@@ -14,8 +14,8 @@ public class FachadaInterface {
      * ALTERAR O RETORNO*
      * !!!!!!!!!!!!!!!!!*
      */
-    public void perguntarUsuário(){
-        
+    public void apresentarUsuário(String prompt){
+        //interface.caixaDeTexto
     }
     
 }

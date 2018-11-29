@@ -1,6 +1,5 @@
 /*
  * Fazer algum método que faça com que a partida acabe quaso o ultimo personagem jogável morrer
- * Adicionar classes para os NPCs
  */
 
 import java.util.Arrays;
@@ -19,8 +18,10 @@ public class Personagem extends Atributos implements Classe_Raca{
     private int Defesa;
     private boolean estaVivo;
     private Inventario inventario;
+    private Mapa.Coordenadas posicaoAtual;
+    private List<Mapa.Coordenadas> visitadas;
     
-    public Personagem(String nome,Raca race, Classe classe){
+    public Personagem(String nome,Raca race, Classe classe, Mapa mundi){
         super(race);
        	this.nome = nome;
         this.race = race;
@@ -31,6 +32,8 @@ public class Personagem extends Atributos implements Classe_Raca{
         this.Mana_Base = calcularMana(this.classe);
         this.Mana_Atual = this.Mana_Base;
         this.inventario = new Inventario(this.getForca(),this.modificadorForca());
+        this.posicaoAtual = mundi.getPosicaoInicial();
+        this.visitadas.add(posicaoAtual);
 
         this.estaVivo = true;
         this.Defesa = 0;
@@ -185,7 +188,27 @@ public class Personagem extends Atributos implements Classe_Raca{
     public String toString(){
         return ""+this.nome+" é um(a) "+this.getStringRaca()+" "+this.getStringClasse()+" e tem os seguintes atributos:\n"+super.toString()+"\n"+this.HP_Base+" Pontos de Vida Base\n"+this.HP_Atual+" Pontos Atuais de Vida\n";
     }
-
+    
+    @Override
+    public String toWriteableString(){
+        String result;
+        result = this.nome;
+        result += ";"+this.getStringRaca();
+        result += ";"+this.getStringClasse();
+        result += ";"+super.toWriteableString();
+        result += ";"+this.getHP_Base();
+        result += ";"+this.getHP_Atual();
+        result += ";"+this.getMana_Base();
+        result += ";"+this.getMana_Atual();
+        result += ";"+"{"+this.posicaoAtual.getX()+","+this.posicaoAtual.getY()+"}";
+        result += ";"+this.visitadas.size()+"{";
+        for(Mapa.Coordenadas C : this.visitadas){
+            result+= ";"+C.getX()+","+C.getY();
+        }
+        result += "};"+this.inventario.toString();
+        return result;
+    }
+    
     @Override
     public int calcularHP(Classe classe_escolhida){
         Dados D = new Dados();
@@ -218,4 +241,12 @@ public class Personagem extends Atributos implements Classe_Raca{
         P = null;
     }
 
+    public void move(Mapa mundi){
+        Mapa.Coordenadas newPosicao = null;
+        /*perguntar ao usuário a direção para qual ele quer se mover*/
+        /*TODO: Modificar os valores de posicao no mapa*/
+        this.visitadas.add(this.posicaoAtual);
+        this.posicaoAtual = newPosicao;
+
+    }
 }

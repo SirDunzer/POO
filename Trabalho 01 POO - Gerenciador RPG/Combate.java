@@ -26,7 +26,7 @@ public class Combate {
             switch(magiaEscolhida){
 
                 case BOLA_FOGO:
-                    if(atacante.getMana_Atual() >= Equipamentos.Magias.BOLA_FOGO.getCustoMana()){
+                    if(atacante.getMana_Atual() >= Inventario.Equipamentos.Magias.BOLA_FOGO.getCustoMana()){
                         Dano += magiaEscolhida.getDado();
                         if(D.rolarD20()+defensor.getConstituicao() > 15){Dano /= 2;}
                         defensor.alteraHP(Dano*-1);                    
@@ -36,7 +36,7 @@ public class Combate {
                     break;
 
                 case BOLA_GELO:
-                    if(atacante.getMana_Atual() >= Equipamentos.Magias.BOLA_GELO.getCustoMana()){
+                    if(atacante.getMana_Atual() >= Inventario.Equipamentos.Magias.BOLA_GELO.getCustoMana()){
                         Dano += magiaEscolhida.getDado();
                         if(D.rolarD20()+defensor.getConstituicao() > 15){Dano /= 2;}
                         defensor.alteraHP(Dano*-1);
@@ -46,7 +46,7 @@ public class Combate {
                     break;
 
                 case RELAMPAGO:
-                    if(atacante.getMana_Atual() >= Equipamentos.Magias.RELAMPAGO.getCustoMana()){                    
+                    if(atacante.getMana_Atual() >= Inventario.Equipamentos.Magias.RELAMPAGO.getCustoMana()){                    
                         Dano += magiaEscolhida.getDado();
                         defensor.alteraHP(Dano*-1);
                     }else{
@@ -87,7 +87,6 @@ public class Combate {
             }
         }
 
-        // Ataque Desarmado
         public static void AtaqueDesarmado(Personagem atacante, Personagem defensor){
             Dados d = new Dados();
             int Dano = 0;
@@ -179,6 +178,11 @@ public class Combate {
                         break;
                 }
             }
+        }
+        
+        public static boolean fugir(Personagem fugindo, Personagem atacante){
+            Dados d = new Dados();
+            return(d.rolarD100() + fugindo.modificadorDestreza()) > (d.rolarD100() + atacante.modificadorDestreza());
         }
     }
 }

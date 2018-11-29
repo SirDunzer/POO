@@ -90,6 +90,10 @@ public class Atributos {
     public String toString(){
             return "Força: "+forca+"\nDestreza: "+destreza+"\nConstituição: "+constituicao+"\nInteligência: "+inteligencia+"\nSabedoria: "+sabedoria+"\nCarisma: "+carisma+"\n";
     }
+    
+    public String toWriteableString(){
+        return ""+this.forca+";"+this.destreza+";"+this.constituicao+";"+this.inteligencia+";"+this.sabedoria+";"+this.carisma;
+    }
 
     public int modificadorForca(){
 

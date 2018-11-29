@@ -216,6 +216,25 @@ public class Inventario {
         }
     }
     
+    public String toString(){
+        String res = null;
+        res = "(";
+        res += this.getRiquesa();
+        res += ";"+this.getArmasEquipadas().size();
+        for(Equipamentos.Armas A : this.getArmasEquipadas()){
+            res += ";"+A.toString();
+        }
+        res += ";"+this.getArmadurasEquipadas().size();
+        for(Equipamentos.Armaduras A : this.getArmadurasEquipadas()){
+            res += ";"+A.toString();
+        }
+        res += ":"+this.getItensGuardados().size();
+        for(String S : this.getItensGuardados()){
+            res += ";"+S;
+        }
+        return ")"+res;
+    }
+    
     static class Equipamentos{
 
         public enum Armas{

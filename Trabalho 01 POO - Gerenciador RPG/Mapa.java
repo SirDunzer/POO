@@ -31,6 +31,10 @@ public class Mapa {
         this.pontosInteresse = geraPontosInteresse();
     }
     
+    public Coordenadas getPosicaoInicial(){
+        return this.posicaoInicial;
+    }
+    
     Map<Coordenadas,Locais> geraPontosInteresse(){
         int x,y,z;
         List<Locais> LocalRandom = Collections.unmodifiableList(Arrays.asList(Locais.values()));
