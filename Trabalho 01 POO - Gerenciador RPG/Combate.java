@@ -7,13 +7,11 @@ public class Combate {
     // usa um loop while(true) que executa ataques e tudo mais -- loop principal do combate
     // caso/quando um personagem morrer o loop acaba (o combate acaba)
     
-    public void loop(Personagem atacante, Personagem defensor){
+    public void loop(Personagem[] atacantes, Personagem[] defensores){
         
         while(true){
             // prompt(atacante, armaEscolhida);
             // prompt(atacante, tipo ataque);
-            //TODO: perguntar ao usuário qual arma ele quer usar
-            //TODO: perguntar ao usuário que tipo de ataque ele vai dar
         }
         
     }
@@ -108,8 +106,15 @@ public class Combate {
             Dados D = new Dados();
             int X; // para verificar se houve um critico
             int X1;
+            Inventario.Equipamentos.Armas arma;
+            int escolha; /*perguntar ao usuário qual arma ele pretende usar*/
             
-            int escolha = 0; /*perguntar ao usuário qual arma ele pretende usar*/
+            if(armaEscolhida.length == 1){
+                arma = armaEscolhida[0];
+            }else{
+                esolha = /*pergunta para o usuário*/
+                arma = armaEscolhida[escolha];
+            }
             
             if(Envolvidos.length > 1){ // há mais de um personagem => um atacante e um defensor
                 
@@ -118,13 +123,13 @@ public class Combate {
                         if(Envolvidos[0].getMana_Atual() >= 8){
                             X = D.rolarD20();
                             if(X > Envolvidos[1].getDefesa()){
-                                Dano = 2*Envolvidos[0].modificadorForca() + armaEscolhida[].getDado() + D.rolarD12();
+                                Dano = 2*Envolvidos[0].modificadorForca() + arma.getDado() + D.rolarD12();
                             }
                             if(Dano <= 0){Dano = 0;}
                             if(X == 20){Dano *= 2;}
                             Envolvidos[1].alteraHP(Dano*-1);   
                         }else{
-                            System.err.println("Não há mana Suficiente para isso !");
+                            throw new ExcecaoCombate("Não há Mana Suficiente");
                         }
                         break;
 
@@ -133,13 +138,13 @@ public class Combate {
                             X = D.rolarD20();
                             X1 = D.rolarD20();
                             if(X > Envolvidos[1].getDefesa() || X1 > Envolvidos[1].getDefesa()){
-                                Dano = armaEscolhida.getDado() + D.rolarD6();
+                                Dano = arma.getDado() + D.rolarD6();
                             }
                             if(Dano <= 0){Dano = 0;}
                             if(X == 20 || X1 == 20){Dano *= 2;}
                             Envolvidos[1].alteraHP(Dano*-1);
                         }else{
-                            System.err.println("Não há mana Suficiente para isso !");
+                            throw new ExcecaoCombate("Não há Mana Suficiente");
                         }
                         break;
 
@@ -148,12 +153,12 @@ public class Combate {
                             X = D.rolarD20();
                             X1 = D.rolarD20();
                             if(X + Envolvidos[0].modificadorDestreza() > X1 + Envolvidos[1].modificadorSabedoria()){
-                                Dano = armaEscolhida.getDado() + D.rolarD6() + D.rolarD6();
+                                Dano = arma.getDado() + D.rolarD6() + D.rolarD6();
                             }
                             if(Dano <= 0){Dano = 0;}
                             Envolvidos[1].alteraHP(Dano*-1);
                         }else{
-                            System.err.println("Não há mana Suficiente para isso !");
+                            throw new ExcecaoCombate("Não há Mana Suficiente");
                         }
                         break;
                 }

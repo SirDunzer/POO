@@ -10,9 +10,9 @@ public class FachadaInterface {
     }
     
     /**
-     * !!!!!!!!!!!!!!!!!
-     * ALTERAR O RETORNO
-     * !!!!!!!!!!!!!!!!!
+     * !!!!!!!!!!!!!!!!!*
+     * ALTERAR O RETORNO*
+     * !!!!!!!!!!!!!!!!!*
      */
     public void perguntarUsuário(){
         
