@@ -20,6 +20,7 @@ public class Personagem extends Atributos implements Classe_Raca{
     private Inventario inventario;
     private Mapa.Coordenadas posicaoAtual;
     private List<Mapa.Coordenadas> visitadas;
+    private DAO_Personagem saver;
     
     public Personagem(String nome,Raca race, Classe classe, Mapa mundi){
         super(race);
@@ -34,9 +35,31 @@ public class Personagem extends Atributos implements Classe_Raca{
         this.inventario = new Inventario(this.getForca(),this.modificadorForca());
         this.posicaoAtual = mundi.getPosicaoInicial();
         this.visitadas.add(posicaoAtual);
+        this.saver = new DAO_Personagem();
 
         this.estaVivo = true;
         this.Defesa = 0;
+    }
+    
+    public Personagem(){
+        super();
+        
+       	this.nome = null;
+        this.race = null;
+        this.classe = null;
+
+        this.HP_Base = -1;
+        this.HP_Atual = -1;
+        this.Mana_Base = -1;
+        this.Mana_Atual = -1;
+        this.inventario = null;
+        this.posicaoAtual = null;
+        this.visitadas = null;
+        this.saver = null;
+
+        this.estaVivo = false;
+        this.Defesa = -1;
+        
     }
 
     public String getNome() {
@@ -195,18 +218,24 @@ public class Personagem extends Atributos implements Classe_Raca{
         result = this.nome;
         result += ";"+this.getStringRaca();
         result += ";"+this.getStringClasse();
-        result += ";"+super.toWriteableString();
-        result += ";"+this.getHP_Base();
+        result += "\r\n";
+        result += "("+super.toWriteableString()+")";
+        result += "\r\n";
+        result += this.getHP_Base();
         result += ";"+this.getHP_Atual();
         result += ";"+this.getMana_Base();
         result += ";"+this.getMana_Atual();
         result += ";"+"{"+this.posicaoAtual.getX()+","+this.posicaoAtual.getY()+"}";
-        result += ";"+this.visitadas.size()+"{";
+        result += ";"+this.visitadas.size()+";{";
+        int j = 0;
         for(Mapa.Coordenadas C : this.visitadas){
-            result+= ";"+C.getX()+","+C.getY();
+            result+= "("+C.getX()+","+C.getY()+")";
+            if(j++ != this.visitadas.size()-1){
+                result += ";"; // garantindo que o ultimo par não tem ; depois
+            }
         }
-        result += "};"+this.inventario.toString();
-        return result;
+        result += "}\r\n"+this.inventario.toString();
+        return "\r\n"+result;
     }
     
     @Override
@@ -235,6 +264,26 @@ public class Personagem extends Atributos implements Classe_Raca{
             case BANDIDO: return super.getSabedoria()-1 + D.rolarD4();
             default: return -1;
         }
+    }
+    
+    
+    public void save(String filename) throws Exception{
+        try{
+            this.saver.save(this,filename);
+        }catch(Exception e){
+            throw e;
+        }
+    }
+    
+    public Personagem load(String filename) throws Exception{
+        try{
+            return this.saver.init(filename);
+        }catch(Exception e){
+            throw e;
+        }finally{
+            return null;
+        }
+        
     }
     
     public static void kill(Personagem P){

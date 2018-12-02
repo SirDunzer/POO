@@ -18,6 +18,7 @@ public class Mapa {
     final int[][] Mundo;
     Coordenadas posicaoInicial;
     Map<Coordenadas,Locais> pontosInteresse;
+    DAO_Mapa saver;
     
     public Mapa(){
         this.Mundo = new int[256][256];
@@ -29,10 +30,19 @@ public class Mapa {
         this.Mundo[128][128] = 1; // 1 = Player está lá
         this.posicaoInicial = new Coordenadas(128,128);
         this.pontosInteresse = geraPontosInteresse();
+        this.saver = new DAO_Mapa();
     }
     
     public Coordenadas getPosicaoInicial(){
         return this.posicaoInicial;
+    }
+    
+    public void save(String filename) throws Exception{
+        try{
+            this.saver.save(this,filename);
+        }catch(Exception e){
+            throw e;
+        }
     }
     
     Map<Coordenadas,Locais> geraPontosInteresse(){

@@ -7,7 +7,7 @@ public class Combate {
     // usa um loop while(true) que executa ataques e tudo mais -- loop principal do combate
     // caso/quando um personagem morrer o loop acaba (o combate acaba)
     
-    public void loop(Personagem[] atacantes, Personagem[] defensores){
+    public void loop_combate(Personagem[] combatentes){
         
         while(true){
             // prompt(atacante, armaEscolhida);

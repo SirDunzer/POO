@@ -11,12 +11,12 @@ public class Atributos {
 
     public Atributos(Classe_Raca.Raca raca){
 
-        forca = d.rolarValores();
-        destreza = d.rolarValores();
-        constituicao = d.rolarValores();
-        inteligencia = d.rolarValores();
-        sabedoria = d.rolarValores();
-        carisma = d.rolarValores();
+        this.forca = d.rolarValores();
+        this.destreza = d.rolarValores();
+        this.constituicao = d.rolarValores();
+        this.inteligencia = d.rolarValores();
+        this.sabedoria = d.rolarValores();
+        this.carisma = d.rolarValores();
 
         switch(raca){
             case ANAO:
@@ -59,6 +59,15 @@ public class Atributos {
                 sabedoria -= 5;
                 carisma -= 6;
         }
+    }
+    
+    public Atributos(){
+        this.forca = -1;
+        this.destreza = -1;
+        this.constituicao = -1;
+        this.inteligencia = -1;
+        this.sabedoria = -1;
+        this.carisma = -1;
     }
 
 		/*GETTERS*/

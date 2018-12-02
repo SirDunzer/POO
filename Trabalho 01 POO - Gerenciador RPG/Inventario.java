@@ -220,18 +220,33 @@ public class Inventario {
         String res = null;
         res = "(";
         res += this.getRiquesa();
-        res += ";"+this.getArmasEquipadas().size();
+        res += ";"+this.getArmasEquipadas().size()+";[";
+        int j = 0;
         for(Equipamentos.Armas A : this.getArmasEquipadas()){
-            res += ";"+A.toString();
+            res += A.toString();
+            if(j++ != this.getArmasEquipadas().size()-1){
+                res += ",";
+            }
         }
-        res += ";"+this.getArmadurasEquipadas().size();
+        res += "]";
+        res += ";"+this.getArmadurasEquipadas().size()+";[";
+        j = 0;
         for(Equipamentos.Armaduras A : this.getArmadurasEquipadas()){
-            res += ";"+A.toString();
+            res += A.toString();
+            if(j++ != this.getArmadurasEquipadas().size()-1){
+                res += ",";
+            }
         }
-        res += ":"+this.getItensGuardados().size();
+        res += "]";
+        res += ";"+this.getItensGuardados().size()+";[";
+        j = 0;
         for(String S : this.getItensGuardados()){
-            res += ";"+S;
+            res += S;
+            if(j++ != this.getItensGuardados().size()-1){
+                res += ",";
+            }
         }
+        res += "]";
         return ")"+res;
     }
     
