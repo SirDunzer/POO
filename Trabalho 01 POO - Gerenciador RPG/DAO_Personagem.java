@@ -92,6 +92,7 @@ public class DAO_Personagem {
                         break;
                         
                     case 1:
+                        
                         break;
                     case 2:
                         break;

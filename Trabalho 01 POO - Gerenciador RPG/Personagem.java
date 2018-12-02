@@ -270,7 +270,7 @@ public class Personagem extends Atributos implements Classe_Raca{
         result += ";"+this.getStringRaca();
         result += ";"+this.getStringClasse();
         result += "\r\n";
-        result += "("+super.toWriteableString()+")";
+        result += super.toWriteableString();
         result += "\r\n";
         result += this.getHP_Base();
         result += ";"+this.getHP_Atual();
