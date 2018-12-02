@@ -33,12 +33,13 @@ public class DAO_Personagem {
         BufferedReader bReader = null;
         FileReader fReader = null;
         List<String> linhas = null;
-        Personagem P;
+        String S = null;
+        Personagem P = null;
         
         try{
             fReader = new FileReader(nome_arquivo);
             bReader = new BufferedReader(fReader);
-            linhas = Files.readAllLines(Paths.get(nome_arquivo));            
+            linhas = Files.readAllLines(Paths.get(nome_arquivo));
             P = new Personagem();
             /**
              * Primeira Linha: Nome, Raça e Classe
@@ -47,16 +48,57 @@ public class DAO_Personagem {
              * Quarta Linha: riquesa, total de armas equipadas e as proprias, total de armaduras equipadas e as proprias, total de itens guardados e os proprios
              */
             for(int i = 0; i < 4; i++){
+                S = linhas.get(i);
                 
-                if(i == 0){
-//                    P.
-//                    fazer setters para Personagem
-                }else if(i == 1){
+                switch (i) {
                     
-                }else if(i == 2){
-                    
-                }else if(i == 3){
-                    
+                    case 0:
+                        
+                        P.setNome(S.split(";")[0]);
+                        
+                        switch (S.split(";")[1]) {
+                            case "Anao":
+                                P.setRace(Classe_Raca.Raca.ANAO);
+                                break;
+                            case "Humano":
+                                P.setRace(Classe_Raca.Raca.HUMANO);
+                                break;
+                            case "Elfo":
+                                P.setRace(Classe_Raca.Raca.ELFO);
+                                break;
+                            default:
+                                break;
+                        }
+                        
+                        switch (S.split(";")[1]) {
+                            case "Barbaro":
+                                P.setClasse(Classe_Raca.Classe.BARBARO);
+                                break;
+                            case "Cacador":
+                                P.setClasse(Classe_Raca.Classe.CACADOR);
+                                break;
+                            case "Guerreiro":
+                                P.setClasse(Classe_Raca.Classe.GUERREIRO);
+                                break;
+                            case "Ladino":
+                                P.setClasse(Classe_Raca.Classe.LADINO);
+                                break;
+                            case "Mago":
+                                P.setClasse(Classe_Raca.Classe.MAGO);
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                        
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                    default:
+                        break;
                 }
             }
             

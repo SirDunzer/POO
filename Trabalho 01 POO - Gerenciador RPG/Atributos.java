@@ -90,9 +90,33 @@ public class Atributos {
     public int getSabedoria() {
         return sabedoria;
     }
-
+    
     public int getCarisma() {
         return carisma;
+    }
+    
+    public void setForca(int forca) {
+        this.forca = forca;
+    }
+
+    public void setDestreza(int destreza) {
+        this.destreza = destreza;
+    }
+
+    public void setConstituicao(int constituicao) {
+        this.constituicao = constituicao;
+    }
+
+    public void setInteligencia(int inteligencia) {
+        this.inteligencia = inteligencia;
+    }
+
+    public void setSabedoria(int sabedoria) {
+        this.sabedoria = sabedoria;
+    }
+
+    public void setCarisma(int carisma) {
+        this.carisma = carisma;
     }
 
     @Override

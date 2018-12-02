@@ -8,11 +8,12 @@ import java.util.List;
 import java.util.Random;
 
 public class Personagem extends Atributos implements Classe_Raca{
-    private final String nome;
-    private final Raca race;
-    private final Classe classe;
-    private final int HP_Base;
-    private final int Mana_Base;
+
+    private String nome;
+    private Raca race;
+    private Classe classe;
+    private int HP_Base;
+    private int Mana_Base;
     private int HP_Atual;
     private int Mana_Atual;
     private int Defesa;
@@ -84,6 +85,56 @@ public class Personagem extends Atributos implements Classe_Raca{
 
     public int getDefesa(){
         return this.Defesa;
+    }
+    
+    public void setHP_Atual(int HP_Atual) {
+        this.HP_Atual = HP_Atual;
+    }
+
+    public void setMana_Atual(int Mana_Atual) {
+        this.Mana_Atual = Mana_Atual;
+    }
+
+    public void setDefesa(int Defesa) {
+        this.Defesa = Defesa;
+    }
+
+    public void setEstaVivo(boolean estaVivo) {
+        this.estaVivo = estaVivo;
+    }
+
+    public void setInventario(Inventario inventario) {
+        this.inventario = inventario;
+    }
+
+    //alterar
+    public void setPosicaoAtual(Mapa.Coordenadas posicaoAtual) {
+        this.posicaoAtual = posicaoAtual;
+    }
+
+    // alterar
+    public void setVisitadas(List<Mapa.Coordenadas> visitadas) {
+        this.visitadas = visitadas;
+    }
+    
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setRace(Raca race) {
+        this.race = race;
+    }
+
+    public void setClasse(Classe classe) {
+        this.classe = classe;
+    }
+
+    public void setHP_Base(int HP_Base) {
+        this.HP_Base = HP_Base;
+    }
+
+    public void setMana_Base(int Mana_Base) {
+        this.Mana_Base = Mana_Base;
     }
 
     public boolean checkVivo(){
