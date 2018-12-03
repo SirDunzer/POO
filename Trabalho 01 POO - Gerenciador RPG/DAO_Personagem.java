@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.ArrayList;
 
 public class DAO_Personagem {
    
@@ -34,6 +35,7 @@ public class DAO_Personagem {
         FileReader fReader = null;
         List<String> linhas = null;
         String S = null;
+        String [] S2 = null;
         Personagem P = null;
         
         try{
@@ -49,14 +51,14 @@ public class DAO_Personagem {
              */
             for(int i = 0; i < 4; i++){
                 S = linhas.get(i);
-                
+                S2 = S.split(";");
                 switch (i) {
                     
                     case 0:
                         
-                        P.setNome(S.split(";")[0]);
+                        P.setNome(S2[0]);
                         
-                        switch (S.split(";")[1]) {
+                        switch (S2[1]) {
                             case "Anao":
                                 P.setRace(Classe_Raca.Raca.ANAO);
                                 break;
@@ -70,7 +72,7 @@ public class DAO_Personagem {
                                 break;
                         }
                         
-                        switch (S.split(";")[1]) {
+                        switch (S2[1]) {
                             case "Barbaro":
                                 P.setClasse(Classe_Raca.Classe.BARBARO);
                                 break;
@@ -92,17 +94,50 @@ public class DAO_Personagem {
                         break;
                         
                     case 1:
+                        P.setForca(Integer.valueOf(S2[0]));
+                        P.setDestreza(Integer.valueOf(S2[1]));
+                        P.setConstituicao(Integer.valueOf(S2[2]));
+                        P.setInteligencia(Integer.valueOf(S2[3]));
+                        P.setSabedoria(Integer.valueOf(S2[4]));
+                        P.setCarisma(Integer.valueOf(S2[5]));
+                        break;
+                        
+                    case 2:
+                        P.setHP_Base(Integer.valueOf(S2[0]));
+                        P.setHP_Atual(Integer.valueOf(S2[1]));
+                        P.setMana_Base(Integer.valueOf(S2[2]));
+                        P.setMana_Atual(Integer.valueOf(S2[3]));
+                        
+                        String S3 = S2[4];
+                        String[] S4 = null;
+                        List<Mapa.Coordenadas> V = new ArrayList<>();
+                        
+                        S3 = S3.substring(1, S3.length()-1);
+                        P.setPosicaoAtual(Integer.valueOf(S3.split(",")[0]),Integer.valueOf(S3.split(",")[1]));
+                        
+                        S3 = S2[6].substring(1, S2[6].length()-1);
+                        S4 = S3.split(";");
+                        
+                        for(int j = 0; j < Integer.valueOf(S2[5]); j ++){
+                            S4[j] = S4[j].substring(1, S4[j].length()-1);
+                            P.addVisitada(Integer.valueOf(S4[j].split(",")[0]),Integer.valueOf(S4[j].split(",")[1]));
+                        }
+                        break;
+                        
+                    case 3:
+                        
+                        
                         
                         break;
-                    case 2:
-                        break;
-                    case 3:
-                        break;
+                        
                     default:
                         break;
                 }
             }
-            
+            bReader.close();
+            fReader.close();
+            P.setVivo(true);
+            return P;
         }catch(IOException e){
             throw new ExcecaoSalvamento("Erro ao ler");
         }

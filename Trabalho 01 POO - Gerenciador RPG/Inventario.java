@@ -218,8 +218,7 @@ public class Inventario {
     
     public String toString(){
         String res = null;
-        res = "(";
-        res += this.getRiquesa();
+        res = ""+this.getRiquesa();
         res += ";"+this.getArmasEquipadas().size()+";[";
         int j = 0;
         for(Equipamentos.Armas A : this.getArmasEquipadas()){
@@ -247,7 +246,7 @@ public class Inventario {
             }
         }
         res += "]";
-        return ")"+res;
+        return res;
     }
     
     static class Equipamentos{

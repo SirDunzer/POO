@@ -109,7 +109,7 @@ public class Mapa {
         
     }
 
-    class Coordenadas{
+    public class Coordenadas{
         int X;
         int Y;
 

@@ -5,8 +5,11 @@
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Random;
-
+/**
+ * !!!! FAZER MÉTODO move !!!! 
+ */
 public class Personagem extends Atributos implements Classe_Raca{
 
     private String nome;
@@ -21,7 +24,7 @@ public class Personagem extends Atributos implements Classe_Raca{
     private Inventario inventario;
     private Mapa.Coordenadas posicaoAtual;
     private List<Mapa.Coordenadas> visitadas;
-    private DAO_Personagem saver;
+    private final DAO_Personagem saver;
     
     public Personagem(String nome,Raca race, Classe classe, Mapa mundi){
         super(race);
@@ -35,6 +38,7 @@ public class Personagem extends Atributos implements Classe_Raca{
         this.Mana_Atual = this.Mana_Base;
         this.inventario = new Inventario(this.getForca(),this.modificadorForca());
         this.posicaoAtual = mundi.getPosicaoInicial();
+        this.visitadas = new ArrayList<>();
         this.visitadas.add(posicaoAtual);
         this.saver = new DAO_Personagem();
 
@@ -55,7 +59,7 @@ public class Personagem extends Atributos implements Classe_Raca{
         this.Mana_Atual = -1;
         this.inventario = null;
         this.posicaoAtual = null;
-        this.visitadas = null;
+        this.visitadas = new ArrayList<>();
         this.saver = null;
 
         this.estaVivo = false;
@@ -87,6 +91,14 @@ public class Personagem extends Atributos implements Classe_Raca{
         return this.Defesa;
     }
     
+    public void setHP_Base(int HP_Base) {
+        this.HP_Base = HP_Base;
+    }
+
+    public void setMana_Base(int Mana_Base) {
+        this.Mana_Base = Mana_Base;
+    }
+    
     public void setHP_Atual(int HP_Atual) {
         this.HP_Atual = HP_Atual;
     }
@@ -95,11 +107,7 @@ public class Personagem extends Atributos implements Classe_Raca{
         this.Mana_Atual = Mana_Atual;
     }
 
-    public void setDefesa(int Defesa) {
-        this.Defesa = Defesa;
-    }
-
-    public void setEstaVivo(boolean estaVivo) {
+    public void setVivo(boolean estaVivo) {
         this.estaVivo = estaVivo;
     }
 
@@ -111,8 +119,12 @@ public class Personagem extends Atributos implements Classe_Raca{
     public void setPosicaoAtual(Mapa.Coordenadas posicaoAtual) {
         this.posicaoAtual = posicaoAtual;
     }
-
-    // alterar
+    
+    public void setPosicaoAtual(Integer X, Integer Y){
+        this.posicaoAtual.setX(X);
+        this.posicaoAtual.setY(Y);
+    }
+    
     public void setVisitadas(List<Mapa.Coordenadas> visitadas) {
         this.visitadas = visitadas;
     }
@@ -128,13 +140,10 @@ public class Personagem extends Atributos implements Classe_Raca{
     public void setClasse(Classe classe) {
         this.classe = classe;
     }
-
-    public void setHP_Base(int HP_Base) {
-        this.HP_Base = HP_Base;
-    }
-
-    public void setMana_Base(int Mana_Base) {
-        this.Mana_Base = Mana_Base;
+    
+    public void addVisitada(Integer X, Integer Y){
+        Mapa M = new Mapa(); // super desperdício de tempo e memória, mas não há muito o que fazer sem drasticamente alterar a modelagem
+        this.visitadas.add(M.new Coordenadas(X,Y));
     }
 
     public boolean checkVivo(){
@@ -316,7 +325,6 @@ public class Personagem extends Atributos implements Classe_Raca{
             default: return -1;
         }
     }
-    
     
     public void save(String filename) throws Exception{
         try{
