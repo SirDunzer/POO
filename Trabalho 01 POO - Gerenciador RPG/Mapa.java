@@ -63,8 +63,9 @@ public class Mapa {
         this.Mundo = mundo;
     }
     
-    public void newpontosInteresse(){
-        this.pontosInteresse = geraPontosInteresse();
+    public void newpontosInteresse(Integer X, Integer Y, Locais L){
+        this.pontosInteresse = new HashMap<>();
+        this.pontosInteresse.put(new Coordenadas(X,Y), L);        
     }
     
     Map<Coordenadas,Locais> geraPontosInteresse(){

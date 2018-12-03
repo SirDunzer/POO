@@ -57,6 +57,47 @@ public class DAO_Mapa {
 
             for(String S3 : S2){
                S3 = S3.substring(1, S3.length()-1);
+               String[] S4 = S3.split("-");
+               
+               switch(S4[2]){
+                   
+                    case "Inimigo":
+                        M.newpontosInteresse(Integer.parseInt(S4[0]), Integer.parseInt(S4[1]), Mapa.Locais.INIMIGO);
+                        break;
+                       
+                    case "Bau":
+                        M.newpontosInteresse(Integer.parseInt(S4[0]), Integer.parseInt(S4[1]), Mapa.Locais.BAU);
+                        break;
+                       
+                   case "Loja":
+                       M.newpontosInteresse(Integer.parseInt(S4[0]), Integer.parseInt(S4[1]), Mapa.Locais.LOJA);
+                       break;
+                       
+                   case "Floresta":
+                       M.newpontosInteresse(Integer.parseInt(S4[0]), Integer.parseInt(S4[1]), Mapa.Locais.FLORESTA);
+                       break;
+                    
+                   case "Monumento":
+                       M.newpontosInteresse(Integer.parseInt(S4[0]), Integer.parseInt(S4[1]), Mapa.Locais.MONUMENTO);
+                       break;   
+                       
+                   case "Cidade":
+                       M.newpontosInteresse(Integer.parseInt(S4[0]), Integer.parseInt(S4[1]), Mapa.Locais.CIDADE);
+                       break;
+                       
+                   case "Nada":
+                       M.newpontosInteresse(Integer.parseInt(S4[0]), Integer.parseInt(S4[1]), Mapa.Locais.NADA);
+                       break;   
+                    
+                   case "Vilarejo":
+                       M.newpontosInteresse(Integer.parseInt(S4[0]), Integer.parseInt(S4[1]), Mapa.Locais.VILAREJO);
+                       break;
+                       
+                   case "Obelisco":
+                       M.newpontosInteresse(Integer.parseInt(S4[0]), Integer.parseInt(S4[1]), Mapa.Locais.OBELISCO);
+                       break;   
+               }
+               
             }
             
             bReader.close();

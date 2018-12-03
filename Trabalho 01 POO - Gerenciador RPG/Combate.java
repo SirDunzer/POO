@@ -100,20 +100,12 @@ public class Combate {
             defensor.alteraHP(Dano*-1);
         }
         
-        public static void habilidadeEspecial(Personagem[] Envolvidos, Inventario.Equipamentos.Armas... armaEscolhida) throws Exception{
+        public static void habilidadeEspecial(Personagem[] Envolvidos, Inventario.Equipamentos.Armas armaEscolhida) throws Exception{
             int Dano = 0;
             Dados D = new Dados();
             int X; // para verificar se houve um critico
             int X1;
-            Inventario.Equipamentos.Armas arma;
-            int escolha; /*perguntar ao usuário qual arma ele pretende usar*/
             
-            if(armaEscolhida.length == 1){
-                arma = armaEscolhida[0];
-            }else{
-                esolha = /*pergunta para o usuário*/
-                arma = armaEscolhida[escolha];
-            }
             
             if(Envolvidos.length > 1){ // há mais de um personagem => um atacante e um defensor
                 
@@ -122,7 +114,7 @@ public class Combate {
                         if(Envolvidos[0].getMana_Atual() >= 8){
                             X = D.rolarD20();
                             if(X > Envolvidos[1].getDefesa()){
-                                Dano = 2*Envolvidos[0].modificadorForca() + arma.getDado() + D.rolarD12();
+                                Dano = 2*Envolvidos[0].modificadorForca() + armaEscolhida.getDado() + D.rolarD12();
                             }
                             if(Dano <= 0){Dano = 0;}
                             if(X == 20){Dano *= 2;}
@@ -137,7 +129,7 @@ public class Combate {
                             X = D.rolarD20();
                             X1 = D.rolarD20();
                             if(X > Envolvidos[1].getDefesa() || X1 > Envolvidos[1].getDefesa()){
-                                Dano = arma.getDado() + D.rolarD6();
+                                Dano = armaEscolhida.getDado() + D.rolarD6();
                             }
                             if(Dano <= 0){Dano = 0;}
                             if(X == 20 || X1 == 20){Dano *= 2;}
@@ -152,7 +144,7 @@ public class Combate {
                             X = D.rolarD20();
                             X1 = D.rolarD20();
                             if(X + Envolvidos[0].modificadorDestreza() > X1 + Envolvidos[1].modificadorSabedoria()){
-                                Dano = arma.getDado() + D.rolarD6() + D.rolarD6();
+                                Dano = armaEscolhida.getDado() + D.rolarD6() + D.rolarD6();
                             }
                             if(Dano <= 0){Dano = 0;}
                             Envolvidos[1].alteraHP(Dano*-1);
