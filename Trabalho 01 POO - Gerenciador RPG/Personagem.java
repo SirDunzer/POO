@@ -91,6 +91,10 @@ public class Personagem extends Atributos implements Classe_Raca{
         return this.Defesa;
     }
     
+    public Inventario getInventario(){
+        return this.inventario;
+    }
+    
     public void setHP_Base(int HP_Base) {
         this.HP_Base = HP_Base;
     }

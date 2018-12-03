@@ -46,6 +46,10 @@ public class Inventario {
         return this.Riquesa;
     }
     
+    public void setRiquesa(int riquesa){
+        this.Riquesa = riquesa;
+    }
+    
     // jogar uma exceção quando ocorrer um erro
     public void equiparArma(Equipamentos.Armas arma) throws Exception{ 
         if(arma.getPeso() < this.capacidade_Equipar){                  

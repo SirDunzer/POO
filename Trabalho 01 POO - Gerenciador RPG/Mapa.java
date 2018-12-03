@@ -15,7 +15,7 @@ De algum modo inserir na classe do personagem uma lista de todos os locais já v
 */
 
 public class Mapa {
-    final int[][] Mundo;
+    private int[][] Mundo;
     Coordenadas posicaoInicial;
     Map<Coordenadas,Locais> pontosInteresse;
     DAO_Mapa saver;
@@ -37,12 +37,34 @@ public class Mapa {
         return this.posicaoInicial;
     }
     
+    public void setPosicaoInicial(Coordenadas X){
+        this.posicaoInicial = X;
+    }
+    
+    public void setPosicaoInicial(Integer X, Integer Y){
+        this.posicaoInicial = new Coordenadas(X,Y);
+    }
+    
     public void save(String filename) throws Exception{
         try{
             this.saver.save(this,filename);
         }catch(Exception e){
             throw e;
         }
+    }
+    
+    public void newMundo(){
+        int[][] mundo = new int[256][256];
+        for(int i=0;i<256;i++){
+            for(int j=0;j<256;j++){
+                mundo[i][j] = 0;
+            }
+        }
+        this.Mundo = mundo;
+    }
+    
+    public void newpontosInteresse(){
+        this.pontosInteresse = geraPontosInteresse();
     }
     
     Map<Coordenadas,Locais> geraPontosInteresse(){

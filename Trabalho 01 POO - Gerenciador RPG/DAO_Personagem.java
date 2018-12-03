@@ -126,7 +126,92 @@ public class DAO_Personagem {
                         
                     case 3:
                         
+                        P.setInventario(new Inventario(P.getForca(), P.modificadorForca()));
+                        P.getInventario().setRiquesa(Integer.valueOf(S2[0]));
                         
+                        String S5 = S2[2];
+                        S5 = S5.substring(1,S5.length()-1);
+                        for(int j = 0; j < Integer.valueOf(S2[1]); j++){
+                            
+                            switch(S5.split(",")[j]){
+                                
+                                case "Adaga":
+                                    P.getInventario().equiparArma(Inventario.Equipamentos.Armas.ADAGA);
+                                    break;
+                                    
+                                case "Espada":
+                                    P.getInventario().equiparArma(Inventario.Equipamentos.Armas.ESPADA);
+                                    break;
+                                    
+                                case "Espada Longa":
+                                    P.getInventario().equiparArma(Inventario.Equipamentos.Armas.ESPADALONGA);
+                                    break;
+                                    
+                                case "Machado de Guerra":
+                                    P.getInventario().equiparArma(Inventario.Equipamentos.Armas.MACHADO);
+                                    break;
+                                    
+                                case "Arco Longo":
+                                    P.getInventario().equiparArma(Inventario.Equipamentos.Armas.ARCOLONGO);
+                                    break;
+                                    
+                                case "Arco Curto":
+                                    P.getInventario().equiparArma(Inventario.Equipamentos.Armas.ARCOCURTO);
+                                    break;
+                                
+                            }
+                        }
+                        
+                        S5 = S2[4];
+                        S5 = S5.substring(1,S5.length()-1);
+                        for(int j = 0; j < Integer.valueOf(S2[3]); j++){
+
+                            switch(S5.split(",")[j]){
+                                
+                                case "Armadura Leve":
+                                    P.getInventario().equiparArmadura(Inventario.Equipamentos.Armaduras.LEVE,P);
+                                    break;
+                                    
+                                case "Armadura Media":
+                                    P.getInventario().equiparArmadura(Inventario.Equipamentos.Armaduras.MEDIA,P);
+                                    break;
+                                    
+                                case "Armadura Pesada":
+                                    P.getInventario().equiparArmadura(Inventario.Equipamentos.Armaduras.PESADA,P);
+                                    break;
+                                    
+                                case "Escudo":
+                                    P.getInventario().equiparArmadura(Inventario.Equipamentos.Armaduras.ESCUDO,P);
+                                    break;
+                                
+                            }
+                        }
+                        
+                        S5 = S2[6];
+                        S5 = S5.substring(1,S5.length()-1);
+                        
+                        for(int j = 0; j < Integer.valueOf(S2[5]); j++){
+
+                            switch(S5.split(",")[j]){
+                                
+                                case "Fruta":
+                                    P.getInventario().guardarItem(Inventario.Equipamentos.Itens.FRUTA);
+                                    break;
+                                    
+                                case "Poção de HP":
+                                    P.getInventario().guardarItem(Inventario.Equipamentos.Itens.POCAO_HP);
+                                    break;
+                                    
+                                case "Poção de Mana":
+                                    P.getInventario().guardarItem(Inventario.Equipamentos.Itens.POCAO_MANA);
+                                    break;
+                                    
+                                case "Tesouro":
+                                    P.getInventario().guardarItem(Inventario.Equipamentos.Itens.TESOURO);
+                                    break;
+                                
+                            }
+                        }
                         
                         break;
                         

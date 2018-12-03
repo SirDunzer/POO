@@ -1,0 +1,1 @@
+(X1,Y1-pontoInteresse);(X2,Y2-pontoInteresse);(X3,Y3-pontoInteresse);etc.

@@ -1,8 +1,15 @@
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 
 public class DAO_Mapa {
+    
+    /* !! Mapa e personagem devem ser salvos em arquivos diferentes !! */
     
     public static void save(Mapa m, String nome_Arquivo) throws Exception{
         
@@ -14,7 +21,6 @@ public class DAO_Mapa {
             fWriter = new FileWriter(nome_Arquivo);
             bWriter = new BufferedWriter(fWriter);
 
-            bWriter.newLine();
             for(Mapa.Coordenadas X : m.pontosInteresse.keySet()){
                 bWriter.append("("+X.getX()+","+X.getY()+"-");
                 bWriter.append(m.pontosInteresse.get(X).toString()+")");
@@ -33,7 +39,32 @@ public class DAO_Mapa {
         
     }
     
-    public static Personagem init(String nome_Arquivo){
+    public static Mapa init(String nome_Arquivo) throws Exception{
+        BufferedReader bReader = null;
+        FileReader fReader = null;
+        String S = null;
+        String [] S2 = null;
+        Mapa M = null;
+        
+        try{
+            fReader = new FileReader(nome_Arquivo);
+            bReader = new BufferedReader(fReader);
+            S = bReader.readLine();
+            M.newMundo();
+            M.setPosicaoInicial(128, 128);
+   
+            S2 = S.split(";");
+
+            for(String S3 : S2){
+               S3 = S3.substring(1, S3.length()-1);
+            }
+            
+            bReader.close();
+            fReader.close();
+            return M;
+        }catch(IOException e){
+            throw new ExcecaoSalvamento("Erro ao ler");
+        }
         
     }
     
