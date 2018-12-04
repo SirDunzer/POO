@@ -94,12 +94,12 @@ public class DAO_Personagem {
                         break;
                         
                     case 1:
-                        P.setForca(Integer.valueOf(S2[0]));
-                        P.setDestreza(Integer.valueOf(S2[1]));
-                        P.setConstituicao(Integer.valueOf(S2[2]));
-                        P.setInteligencia(Integer.valueOf(S2[3]));
-                        P.setSabedoria(Integer.valueOf(S2[4]));
-                        P.setCarisma(Integer.valueOf(S2[5]));
+                        P.getAtributos().setForca(Integer.valueOf(S2[0]));
+                        P.getAtributos().setDestreza(Integer.valueOf(S2[1]));
+                        P.getAtributos().setConstituicao(Integer.valueOf(S2[2]));
+                        P.getAtributos().setInteligencia(Integer.valueOf(S2[3]));
+                        P.getAtributos().setSabedoria(Integer.valueOf(S2[4]));
+                        P.getAtributos().setCarisma(Integer.valueOf(S2[5]));
                         break;
                         
                     case 2:
@@ -126,7 +126,7 @@ public class DAO_Personagem {
                         
                     case 3:
                         
-                        P.setInventario(new Inventario(P.getForca(), P.modificadorForca()));
+                        P.setInventario(new Inventario(P.getAtributos().getForca(), P.getAtributos().modificadorForca()));
                         P.getInventario().setRiquesa(Integer.valueOf(S2[0]));
                         
                         String S5 = S2[2];

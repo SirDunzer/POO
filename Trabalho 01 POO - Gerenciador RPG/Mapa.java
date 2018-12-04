@@ -11,7 +11,6 @@ Fazer alguma classe que permita movimentar-se no mapa (Classe combate)
 Fazer alguma classe que simule um sistema de turnos durante o combate (Classe combate)
 Fazer alguma classe que permita interação com o jogador com o local onde ele está (caso não haja um inimigo nesse local) !!FAZER!!
 Fazer algo que remova um inimigo de uma tile do mapa caso ele já tenha sido enfrentado e derrotado Classe Combate + !!FAZER!!
-De algum modo inserir na classe do personagem uma lista de todos os locais já visitados !!FAZER!!
 */
 
 public class Mapa {

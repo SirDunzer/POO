@@ -1,18 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/**
- *
- * @author miguel
- */
+import javax.swing.JOptionPane;
+
 public class Janela_Principal extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Janela_Principal
-     */
     public Janela_Principal() {
         initComponents();
     }
@@ -26,25 +16,73 @@ public class Janela_Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        BotaoPrincipal = new javax.swing.JButton();
+        BotaoSair = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setText("PLACEHOLDER");
+
+        BotaoPrincipal.setText("Jogar");
+        BotaoPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotaoPrincipalActionPerformed(evt);
+            }
+        });
+
+        BotaoSair.setBackground(new java.awt.Color(240, 25, 25));
+        BotaoSair.setText("Sair");
+        BotaoSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotaoSairActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(105, 105, 105)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(163, 163, 163)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(BotaoPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(BotaoSair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(105, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
+                .addComponent(BotaoPrincipal)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, Short.MAX_VALUE)
+                .addComponent(BotaoSair)
+                .addGap(30, 30, 30))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
+    private void BotaoPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoPrincipalActionPerformed
+        // Começar uma instancia
+        // Vai minimizar a janela atual e criar um nova onde o jogador pode criar uma nova partida ou carregar uma
+        
+    }//GEN-LAST:event_BotaoPrincipalActionPerformed
+
+    private void BotaoSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoSairActionPerformed
+        int answer = JOptionPane.showConfirmDialog(null,"Tem Certeza que Deseja Sair?", "Sair",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if( answer == JOptionPane.YES_OPTION )
+            System.exit(0);
+    }//GEN-LAST:event_BotaoSairActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -77,6 +115,22 @@ public class Janela_Principal extends javax.swing.JFrame {
         });
     }
 
+    
+//    public static void menu_Criacao_Personagem(){
+//        
+//    }
+//    
+//    public static void menu_Movimento(){
+//        
+//    }
+//    
+//    public static void menu_Combate(){
+//        
+//    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BotaoPrincipal;
+    private javax.swing.JButton BotaoSair;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

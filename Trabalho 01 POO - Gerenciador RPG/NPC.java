@@ -16,12 +16,4 @@ public class NPC extends Personagem{
         return this.Hostil;
     }
     
-    public void interagir(Personagem P){
-        // TODO
-    }
-    
-    public void trocar(/*Itens*/){
-        // TODO
-    }
-    
 }

@@ -10,8 +10,9 @@ import java.util.Random;
 /**
  * !!!! FAZER MÉTODO move !!!! 
  */
-public class Personagem extends Atributos implements Classe_Raca{
-
+public class Personagem extends Acoes implements Classe_Raca{
+    
+    private Atributos atributos;
     private String nome;
     private Raca race;
     private Classe classe;
@@ -27,7 +28,7 @@ public class Personagem extends Atributos implements Classe_Raca{
     private final DAO_Personagem saver;
     
     public Personagem(String nome,Raca race, Classe classe, Mapa mundi){
-        super(race);
+        this.atributos = new Atributos(race);
        	this.nome = nome;
         this.race = race;
         this.classe = classe;
@@ -36,7 +37,7 @@ public class Personagem extends Atributos implements Classe_Raca{
         this.HP_Atual = this.HP_Base;
         this.Mana_Base = calcularMana(this.classe);
         this.Mana_Atual = this.Mana_Base;
-        this.inventario = new Inventario(this.getForca(),this.modificadorForca());
+        this.inventario = new Inventario(this.atributos.getForca(),this.atributos.modificadorForca());
         this.posicaoAtual = mundi.getPosicaoInicial();
         this.visitadas = new ArrayList<>();
         this.visitadas.add(posicaoAtual);
@@ -47,8 +48,8 @@ public class Personagem extends Atributos implements Classe_Raca{
     }
     
     public Personagem(){
-        super();
         
+        this.atributos = null;
        	this.nome = null;
         this.race = null;
         this.classe = null;
@@ -93,6 +94,10 @@ public class Personagem extends Atributos implements Classe_Raca{
     
     public Inventario getInventario(){
         return this.inventario;
+    }
+    
+    public Atributos getAtributos(){
+        return this.atributos;
     }
     
     public void setHP_Base(int HP_Base) {
@@ -276,14 +281,13 @@ public class Personagem extends Atributos implements Classe_Raca{
         return ""+this.nome+" é um(a) "+this.getStringRaca()+" "+this.getStringClasse()+" e tem os seguintes atributos:\n"+super.toString()+"\n"+this.HP_Base+" Pontos de Vida Base\n"+this.HP_Atual+" Pontos Atuais de Vida\n";
     }
     
-    @Override
     public String toWriteableString(){
         String result;
         result = this.nome;
         result += ";"+this.getStringRaca();
         result += ";"+this.getStringClasse();
         result += "\r\n";
-        result += super.toWriteableString();
+        result += this.atributos.toWriteableString();
         result += "\r\n";
         result += this.getHP_Base();
         result += ";"+this.getHP_Atual();
@@ -307,11 +311,11 @@ public class Personagem extends Atributos implements Classe_Raca{
         Dados D = new Dados();
         
         switch(classe_escolhida){
-            case BARBARO: return super.getConstituicao() + D.rolarD12();
-            case MAGO: return super.getConstituicao() + D.rolarD6();
-            case GUERREIRO: case CACADOR: return super.getConstituicao() + D.rolarD10();
-            case LADINO: return super.getConstituicao() + D.rolarD8();
-            case BANDIDO: return super.getConstituicao()-1 + D.rolarD6();
+            case BARBARO: return this.atributos.getConstituicao() + D.rolarD12();
+            case MAGO: return this.atributos.getConstituicao() + D.rolarD6();
+            case GUERREIRO: case CACADOR: return this.atributos.getConstituicao() + D.rolarD10();
+            case LADINO: return this.atributos.getConstituicao() + D.rolarD8();
+            case BANDIDO: return this.atributos.getConstituicao()-1 + D.rolarD6();
             default: return -1;
         }
     }
@@ -321,11 +325,11 @@ public class Personagem extends Atributos implements Classe_Raca{
         Dados D = new Dados();
         
         switch(classe_escolhida){
-            case BARBARO: return super.getSabedoria() + D.rolarD4();
-            case LADINO: case GUERREIRO: return super.getSabedoria() + D.rolarD6();
-            case CACADOR: return super.getSabedoria() + D.rolarD8();
-            case MAGO: return super.getSabedoria() + D.rolarD12();
-            case BANDIDO: return super.getSabedoria()-1 + D.rolarD4();
+            case BARBARO: return this.atributos.getSabedoria() + D.rolarD4();
+            case LADINO: case GUERREIRO: return this.atributos.getSabedoria() + D.rolarD6();
+            case CACADOR: return this.atributos.getSabedoria() + D.rolarD8();
+            case MAGO: return this.atributos.getSabedoria() + D.rolarD12();
+            case BANDIDO: return this.atributos.getSabedoria()-1 + D.rolarD4();
             default: return -1;
         }
     }
@@ -351,9 +355,11 @@ public class Personagem extends Atributos implements Classe_Raca{
     
     public static void kill(Personagem P){
         P = null;
+        // mensagem P.nome Morreu !
     }
-
-    public void move(Mapa mundi){
+    
+    @Override
+    public void mover(Mapa mundi){
         Mapa.Coordenadas newPosicao = null;
         /*perguntar ao usuário a direção para qual ele quer se mover*/
         /*TODO: Modificar os valores de posicao no mapa*/
