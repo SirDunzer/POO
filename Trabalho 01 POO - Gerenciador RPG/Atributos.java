@@ -11,21 +11,21 @@ public class Atributos {
 
     public Atributos(Classe_Raca.Raca raca){
 
-        forca = d.rolarValores();
-        destreza = d.rolarValores();
-        constituicao = d.rolarValores();
-        inteligencia = d.rolarValores();
-        sabedoria = d.rolarValores();
-        carisma = d.rolarValores();
+        this.forca = d.rolarValores();
+        this.destreza = d.rolarValores();
+        this.constituicao = d.rolarValores();
+        this.inteligencia = d.rolarValores();
+        this.sabedoria = d.rolarValores();
+        this.carisma = d.rolarValores();
 
         switch(raca){
             case ANAO:
                 constituicao += 2;
-            break;
+                break;
             
             case ELFO:
                 destreza += 2;
-            break;
+                break;
 
             case HUMANO:
                 forca += 1;
@@ -34,8 +34,40 @@ public class Atributos {
                 inteligencia += 1;
                 sabedoria += 1;
                 carisma += 1;
-            break;
+                break;
+            
+            case ORC:
+                forca += 1;
+                destreza += 1;
+                constituicao += 2;
+                inteligencia -= 1;
+                sabedoria -= 1;
+                carisma -= 2;
+                break;
+                
+            case GOBLIN:
+                destreza += 2;
+                constituicao -= 1;
+                forca -= 1;
+                break;
+                
+            case GIGANTE:
+                forca += 5;
+                constituicao += 3;
+                destreza -= 3;
+                inteligencia -= 4;
+                sabedoria -= 5;
+                carisma -= 6;
         }
+    }
+    
+    public Atributos(){
+        this.forca = -1;
+        this.destreza = -1;
+        this.constituicao = -1;
+        this.inteligencia = -1;
+        this.sabedoria = -1;
+        this.carisma = -1;
     }
 
 		/*GETTERS*/
@@ -58,14 +90,42 @@ public class Atributos {
     public int getSabedoria() {
         return sabedoria;
     }
-
+    
     public int getCarisma() {
         return carisma;
+    }
+    
+    public void setForca(int forca) {
+        this.forca = forca;
+    }
+
+    public void setDestreza(int destreza) {
+        this.destreza = destreza;
+    }
+
+    public void setConstituicao(int constituicao) {
+        this.constituicao = constituicao;
+    }
+
+    public void setInteligencia(int inteligencia) {
+        this.inteligencia = inteligencia;
+    }
+
+    public void setSabedoria(int sabedoria) {
+        this.sabedoria = sabedoria;
+    }
+
+    public void setCarisma(int carisma) {
+        this.carisma = carisma;
     }
 
     @Override
     public String toString(){
             return "Força: "+forca+"\nDestreza: "+destreza+"\nConstituição: "+constituicao+"\nInteligência: "+inteligencia+"\nSabedoria: "+sabedoria+"\nCarisma: "+carisma+"\n";
+    }
+    
+    public String toWriteableString(){
+        return ""+this.forca+";"+this.destreza+";"+this.constituicao+";"+this.inteligencia+";"+this.sabedoria+";"+this.carisma;
     }
 
     public int modificadorForca(){

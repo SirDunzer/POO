@@ -1,0 +1,4 @@
+nome;raca;classe
+forca;destreza;constituicao;inteligencia;sabedoria;carisma
+hp_base;hp_atual;mana_base;mana_atual;{X_atual,Y_atual};total_coordenadas_visitadas;{(X1,Y1);(X2,Y2)}
+riquesa;total_armas_equipadas;[arma1,arma2,arma3];total_armaduras_equipadas;[armadura1,armadura2];total_itens_guardados;[item1,item2]
